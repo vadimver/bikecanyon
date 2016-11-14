@@ -13,7 +13,15 @@ class CreatePublicationsTable extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('publications', function (Blueprint $table) {
+            $table->increments('id_publication');
+            $table->string('id_profile');
+            $table->text('text');
+            $table->string('img');
+            $table->integer('likes');
+            $table->timestamps();
+
+      });
     }
 
     /**

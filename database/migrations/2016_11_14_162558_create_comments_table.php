@@ -13,7 +13,14 @@ class CreateCommentsTable extends Migration
      */
     public function up()
     {
-        //
+      Schema::create('comments', function (Blueprint $table) {
+          $table->increments('id_comment');
+          $table->integer('id_publication');
+          $table->integer('id_profile');
+          $table->text('text');
+          $table->integer('likes');
+          $table->timestamps();
+      });
     }
 
     /**
