@@ -26,3 +26,7 @@ Route::get('/all', function () {
 Route::get('/tags', function () {
     return view('tags');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');

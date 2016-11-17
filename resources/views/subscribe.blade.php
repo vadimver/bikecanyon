@@ -1,14 +1,9 @@
-@extends('app')
+@extends('layouts.app')
 
 @section('content')
-    <!-- # accordion -->
-    <div class="container accordion">
-      <div id="demo" class="collapse">
-         Форма добавления записи
-      </div>
-      <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo">Добавить запись</button>
-    </div>
-    <!-- / accordion -->
+@if (isset(Auth::user()->id))
+      @include('publication')
+@endif
     <!-- # content_block -->
     <div class="container content_block">
       <div class="row">

@@ -1,13 +1,10 @@
-@extends('app')
+@extends('layouts.app')
 
 @section('content')
-<div class="container accordion">
-  <div id="demo1" class="collapse">
-     Форма добавления записи
-  </div>
-  <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo1">Добавить запись</button>
-</div>
-<!-- / accordion -->
+@if (isset(Auth::user()->id))
+      @include('publication')
+@endif
+
 <!-- # sort -->
 <div class="container accordion">
   <div id="demo" class="collapse">
@@ -16,7 +13,9 @@
         <input type="text" class="form-control" placeholder="Поиск">
       </form>
       <hr/>
-      <p>Вывод по тегам</p>
+      <p>Вывод по тегам
+
+    </p>
       <form class="sort_tags">
         <button type="submit" class="btn btn-primary">Рейтинг</button>
         <button type="submit" class="btn btn-primary">Подписчики</button>
