@@ -36,11 +36,13 @@
                       <li><a href="/tags">Теги</a></li>
                       <li><a href="/subscribe">Подписки</a></li>
                       <li class="active"><a href="/list">Профили</a></li>
+                      <li><a href="/add_publication">Добавить публикацию</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
+
                         @if (Auth::guest())
                             <li><a href="{{ url('/login') }}">Login</a></li>
                             <li><a href="{{ url('/register') }}">Register</a></li>
@@ -71,6 +73,7 @@
 
                         @endif
                     </ul>
+
                     <form class="navbar-form navbar-right">
                       <input type="text" class="form-control" placeholder="Поиск">
                     </form>
