@@ -40,10 +40,16 @@ class PublicationController extends Controller
 
     public function tags()
     {
+      if(isset($_POST['test'])) {
+          $id_test = $_POST['test'];
+      } else {
+          $id_test[0] = 0;
+      }
+
 
       $data = [
         'title' => 'Today affairs',
-        'publications' => Publication::all(),
+        'publications' => Publication::whereIn('tags', $id_test)->paginate(12),
         'comments' => Comment::all(),
         'tags' => Tag::all()
       ];
