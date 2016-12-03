@@ -10,8 +10,9 @@
 
     <title>BikeCanyon</title>
 
-    <!-- Bootstrap core CSS -->
+    <!-- core CSS -->
     <link href="/css/app.css" rel="stylesheet">
+    <link href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
     <link href="/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>
@@ -32,9 +33,9 @@
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <ul class="nav navbar-nav">
-                      <li class="active"><a href="/list">Список профилей</a></li>
-                      <li><a href="/tags">Вывод по тегам</a></li>
-                      <li><a href="/all">Все профили</a></li>
+                      <li><a href="/tags">Теги</a></li>
+                      <li><a href="/subscribe">Подписки</a></li>
+                      <li class="active"><a href="/list">Профили</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -50,17 +51,20 @@
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
+                                    <li><a>Настройки</a></li>
+                                    <li><a>Мои профайлы</a></li>
                                     <li>
                                         <a href="{{ url('/logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                            Logout
+                                            Выход
                                         </a>
 
                                         <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
                                             {{ csrf_field() }}
                                         </form>
                                     </li>
+
                                 </ul>
 
                             </li>
@@ -85,6 +89,8 @@
     </footer>
     <!-- Bootstrap core JavaScript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="../js/app.js"></script>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="/js/bike.js"></script>
+    <script src="/js/app.js"></script>
 </body>
 </html>

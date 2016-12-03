@@ -1,7 +1,8 @@
 <!-- # accordion -->
+
 <div class="container accordion">
   <div id="demo" class="collapse">
-     <form>
+     <form accept-charset="UTF-8" action="{{ url('/new_publication') }}" method="POST">
 
          <div class="form-group{{ $errors->has('text') ? ' has-error' : '' }}">
              <label for="text" class="col-md-4 control-label">Text</label>
@@ -14,23 +15,30 @@
                  </span>
              @endif
              </div>
-         </div>
+         </div><br>
 
-         <div class="form-group{{ $errors->has('tags') ? ' has-error' : '' }}">
+         <div>
              <label for="tags" class="col-md-4 control-label">Теги</label>
-             <div class="col-md-6">
-             <input id="tags" type="tags" class="form-control" name="text" value="{{ old('name') }}" required autofocus>
-
-             @if ($errors->has('tags'))
-                 <span class="help-block">
-                     <strong>{{ $errors->first('tags') }}</strong>
-                 </span>
-             @endif
+             <div class="col-md-8">
+                 <select name="tags">
+                    <option>Тег1</option>
+                    <option>Тег2</option>
+                    <option>Тег3</option>
+                 </select>
              </div>
-         </div>
+         </div><br>
+
+         <div>
+             <label for="img" class="col-md-4 control-label">Картинка</label>
+             <div class="col-md-6">
+             <input id="img" type="text" class="form-control" name='img'>
+             </div>
+         </div><br>
+
+
          <input type='hidden'>
          <input type="hidden" name="_token" value="{{ csrf_token() }}">
-         <input type="hidden" name="id_profile" value="{{ Auth::user()->id }}">
+         <input type="hidden" name="id_user" value="{{ Auth::user()->id }}">
 
           <button type="submit" class="btn btn-primary">Добавить</button>
 
@@ -38,4 +46,5 @@
   </div>
   <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo">Добавить запись</button>
 </div>
+
 <!-- / accordion -->

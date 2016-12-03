@@ -11,22 +11,17 @@
 |
 */
 
-Route::get('/', function () {
-    return view('subscribe');
-});
-
 Route::get('/list', function () {
     return view('list');
 });
 
-Route::get('/all', function () {
-    return view('all');
-});
+Route::post('/new_comment', 'CommentController@create');
 
-Route::get('/tags', function () {
-    return view('tags');
-});
+Route::get('/', 'PublicationController@all');
+Route::get('/subscribe', 'PublicationController@subscribe');
+Route::get('/tags', 'PublicationController@tags');
+
+Route::post('/new_publication', 'PublicationController@create');
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index');
+Route::get('/create_profile', 'HomeController@index');

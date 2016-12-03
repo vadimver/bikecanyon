@@ -39,6 +39,13 @@
   margin-top: 3px;
 }
 
+i{
+  cursor: pointer;
+}
+.i_all_comment{
+  cursor: pointer;
+  margin-left: 30px;
+}
 .comment{
   position: relative;
   margin-top: 5px;
