@@ -9,15 +9,15 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>BikeCanyon</title>
-
-    <!-- core CSS -->
-    <link href="/css/app.css" rel="stylesheet">
-    <link href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
-    <link href="/css/font-awesome.min.css" rel="stylesheet">
     <!-- core chosen -->
     <link rel="stylesheet" href="chosen/docsupport/style.css">
     <link rel="stylesheet" href="chosen/docsupport/prism.css">
     <link rel="stylesheet" href="chosen/chosen.css">
+    <!-- core CSS -->
+    <link href="/css/app.css" rel="stylesheet">
+    <link href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+
 </head>
 <body>
     <div id="app">
@@ -87,8 +87,9 @@
                 </div>
             </div>
         </nav>
-
+        <div class="all_content">
         @yield('content')
+        </div>
     </div>
 
 

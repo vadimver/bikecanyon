@@ -15,7 +15,11 @@ Route::get('/list', function () {
     return view('list');
 });
 
+Route::get('/list', 'ProfileController@index');
+
 Route::post('/new_comment', 'CommentController@create');
+
+# Publication
 
 Route::get('/', 'PublicationController@all');
 Route::get('/subscribe', 'PublicationController@subscribe');

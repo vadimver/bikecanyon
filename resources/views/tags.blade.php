@@ -16,12 +16,12 @@
             <option value="{{$tag->id_tag}}">{{$tag->name_tag}}</option>
             @endforeach
           </select>
+          <input type="hidden" name="_token" value="{{ csrf_token() }}">
+          <input type='submit'>
         </div>
       </div>
     </div>
   </div>
-  <input type="hidden" name="_token" value="{{ csrf_token() }}">
-  <input type='submit'>
 </form>
 
 @include('publications')
