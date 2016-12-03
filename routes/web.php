@@ -20,6 +20,7 @@ Route::post('/new_comment', 'CommentController@create');
 Route::get('/', 'PublicationController@all');
 Route::get('/subscribe', 'PublicationController@subscribe');
 Route::get('/tags', 'PublicationController@tags');
+Route::get('/add_publication', 'PublicationController@add_publication');
 
 Route::post('/new_publication', 'PublicationController@create');
 

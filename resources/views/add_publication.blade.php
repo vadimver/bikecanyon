@@ -1,7 +1,5 @@
-<!-- # accordion -->
-
-<div class="container accordion">
-  <div id="demo" class="collapse">
+@extends('layouts.app')
+@section('content')
      <form accept-charset="UTF-8" action="{{ url('/new_publication') }}" method="POST">
 
          <div class="form-group{{ $errors->has('text') ? ' has-error' : '' }}">
@@ -44,7 +42,5 @@
 
      </form>
   </div>
-  <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo">Добавить запись</button>
-</div>
 
-<!-- / accordion -->
+  @stop

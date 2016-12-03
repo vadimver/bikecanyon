@@ -36,7 +36,10 @@
                       <li><a href="/tags">Теги</a></li>
                       <li><a href="/subscribe">Подписки</a></li>
                       <li class="active"><a href="/list">Профили</a></li>
-                      <li><a href="/add_publication">Добавить публикацию</a></li>
+                      @if (isset(Auth::user()->id))
+                            <li><a href="/add_publication">Добавить публикацию</a></li>
+                      @endif
+
                     </ul>
 
                     <!-- Right Side Of Navbar -->

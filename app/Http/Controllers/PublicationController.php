@@ -51,6 +51,17 @@ class PublicationController extends Controller
       return view('tags', $data);
     }
 
+    public function add_publication()
+    {
+
+      $data = [
+        'title' => 'Today affairs',
+        'tags' => Tag::all()
+      ];
+
+      return view('add_publication', $data);
+    }
+
     public function create(Request $request)
    {
        $this->validate($request, [
