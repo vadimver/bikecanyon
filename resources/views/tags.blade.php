@@ -3,27 +3,24 @@
 @section('content')
 
 
-<!-- # sort -->
-<div class="container accordion">
-  <div id="demo123" class="collapse">
-    <div class="sort">
-      <form class="navbar-form">
-        <input type="text" class="form-control" placeholder="Поиск">
-      </form>
-      <hr/>
-      <p>Вывод по тегам
+<form>
+  <div id="container">
+    <div id="content">
+      <div class="side-by-side clearfix">
+        <div>
+          <em>Into This</em>
 
-    </p>
-      <form class="sort_tags">
-        @foreach ($tags as $tag)
-        <button type="submit" class="btn btn-primary">{{$tag->name_tag}}</button>
-        @endforeach
-      </form>
+          <select data-placeholder="Choose a Country..." class="chosen-select" multiple style="width:350px;" tabindex="4">
+            <option value=""></option>
+            @foreach ($tags as $tag)
+            <option value="{{$tag->name_tag}}">{{$tag->name_tag}}</option>
+            @endforeach
+          </select>
+        </div>
+      </div>
     </div>
   </div>
-  <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#demo123">Добавить тег</button>
-  </div>
-
-  <!-- / sort -->
+</form>
 @include('publications')
+
 @stop

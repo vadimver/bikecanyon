@@ -14,6 +14,10 @@
     <link href="/css/app.css" rel="stylesheet">
     <link href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
     <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- core chosen -->
+    <link rel="stylesheet" href="chosen/docsupport/style.css">
+    <link rel="stylesheet" href="chosen/docsupport/prism.css">
+    <link rel="stylesheet" href="chosen/chosen.css">
 </head>
 <body>
     <div id="app">
@@ -96,6 +100,20 @@
     <!-- Bootstrap core JavaScript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="/chosen/chosen.jquery.js" type="text/javascript"></script>
+    <script src="/chosen/docsupport/prism.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+      var config = {
+        '.chosen-select'           : {},
+        '.chosen-select-deselect'  : {allow_single_deselect:true},
+        '.chosen-select-no-single' : {disable_search_threshold:10},
+        '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+        '.chosen-select-width'     : {width:"95%"}
+      }
+      for (var selector in config) {
+        $(selector).chosen(config[selector]);
+      }
+    </script>
     <script src="/js/bike.js"></script>
     <script src="/js/app.js"></script>
 </body>
