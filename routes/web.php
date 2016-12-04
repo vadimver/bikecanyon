@@ -11,12 +11,13 @@
 |
 */
 
-Route::get('/list', function () {
-    return view('list');
-});
 
-Route::get('/list', 'ProfileController@index');
+# Profile
+Route::any('/list', 'ProfileController@index');
+Route::post('/subscribe', 'ProfileController@subscribe');
+Route::post('/unsubscribe', 'ProfileController@unsubscribe');
 
+# Comment
 Route::post('/new_comment', 'CommentController@create');
 
 # Publication
@@ -25,8 +26,8 @@ Route::get('/', 'PublicationController@all');
 Route::get('/subscribe', 'PublicationController@subscribe');
 Route::any('/tags', 'PublicationController@tags');
 Route::get('/add_publication', 'PublicationController@add_publication');
-
 Route::post('/new_publication', 'PublicationController@create');
 
+# Auth
 Auth::routes();
 Route::get('/create_profile', 'HomeController@index');
