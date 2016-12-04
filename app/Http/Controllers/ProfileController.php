@@ -17,7 +17,7 @@ class ProfileController extends Controller
   {
 
       // sort
-      
+
       if(isset($request->sort)) {
         $sort = $request->sort;
           if($sort == 'name_profile') {
@@ -55,6 +55,7 @@ class ProfileController extends Controller
 
   public function subscribe(Request $request)
   {
+      
       $my_profile = Auth::user()->id;
 
       $a = new Subscribe;

@@ -11,6 +11,8 @@ use App\Http\Requests;
 use App\Publication;
 use App\Comment;
 use App\Tag;
+use App\Profile;
+use App\Subscribe;
 
 class PublicationController extends Controller
 {
@@ -28,10 +30,14 @@ class PublicationController extends Controller
 
     public function subscribe()
     {
+      $id = Auth::user()->id;
+
+      // get all subscribes
+      $sub = Subscribe::where('my_profile', $id)->pluck('sub_profile');
 
       $data = [
         'title' => 'Today affairs',
-        'publications' => Publication::all(),
+        'publications' => Publication::whereIn('id_profile', $sub)->paginate(12),
         'comments' => Comment::all()
       ];
 
