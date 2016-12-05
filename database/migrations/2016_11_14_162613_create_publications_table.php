@@ -18,6 +18,7 @@ class CreatePublicationsTable extends Migration
             $table->integer('id_profile');
             $table->text('text');
             $table->string('img');
+            $table->string('video');
             $table->integer('likes');
             $table->integer('tags');
             $table->timestamps();

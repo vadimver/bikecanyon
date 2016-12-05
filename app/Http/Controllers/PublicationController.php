@@ -76,19 +76,28 @@ class PublicationController extends Controller
 
     public function create(Request $request)
    {
+
+
        $this->validate($request, [
-        'text' => 'required|min:5',
-       ]);
+         'text' => 'required|min:5',
+         'tags' => 'required',
+         'images' => 'required|image|mimes:jpeg,png,jpg|max:2048'
+        ]);
+
+       $imageName = time().'.'.$request->images->getClientOriginalExtension();
+       $request->images->move(public_path('images/'."$request->id_user"), $imageName);
+
 
        $a = new Publication;
-
        $a->text = $request->text;
-       $a->img = $request->img;
        $a->tags = $request->tags;
+       $a->img = $imageName;
+       $a->video = 123;
        $a->id_profile = $request->id_user;
        $a->likes = 0;
 
        $a->save();
+
        return redirect('/tags');
    }
 }
