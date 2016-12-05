@@ -21,7 +21,12 @@ class PublicationController extends Controller
 
       $data = [
         'title' => 'Today affairs',
-        'publications' => Publication::all(),
+        'publications' => Publication::leftJoin('profiles', function($join) {
+          $join->on('publications.id_profile', '=', 'profiles.id_profile');
+        })->leftJoin('tags', function($join) {
+          $join->on('publications.tags', '=', 'tags.id_tag');
+        })->get(),
+
         'comments' => Comment::all()
       ];
 

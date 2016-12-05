@@ -1,4 +1,6 @@
+
 @foreach ($publications as $publication)
+
 <!-- # content_block -->
 <div class="container content_block">
 <div class="row">
@@ -6,9 +8,9 @@
     <div class="list-group content_head">
       <a href="#" class="list-group-item active">
         <i class="fa fa-user-circle" aria-hidden="true"></i>
-        <span>{{$publication->id_profile}} </span>
+        <span>{{$publication->name_profile}} </span>
         <span>{{$publication->created_at}}</span>
-        <span class="content_tags">{{$publication->tags}}</span>
+        <span class="content_tags">{{$publication->name_tag}}</span>
       </a>
     </div>
   </div>
@@ -23,7 +25,7 @@
 <div class="list-group content_footer">
   <div class="list-group-item active">
     <i class="fa fa-heart" aria-hidden="true"> {{$publication->likes}} </i>
-    <i class="fa fa-comment-o i_all_comment" data-toggle="collapse" data-target="#demo{{$publication->id_publication}}" aria-hidden="true">{{$publication->id_publication}}</i>
+    <i class="fa fa-comment-o i_all_comment" data-toggle="collapse" data-target="#demo{{$publication->id_publication}}" aria-hidden="true">на vue сделаем ?</i>
   </div>
     <div id="demo{{$publication->id_publication}}" class="collapse">
        @foreach ($comments as $comment)
