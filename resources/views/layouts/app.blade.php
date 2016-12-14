@@ -10,13 +10,13 @@
 
     <title>BikeCanyon</title>
     <!-- core chosen -->
-    <link rel="stylesheet" href="chosen/docsupport/style.css">
-    <link rel="stylesheet" href="chosen/docsupport/prism.css">
-    <link rel="stylesheet" href="chosen/chosen.css">
+    <link rel="stylesheet" href="{{ url('chosen/docsupport/style.css') }}">
+    <link rel="stylesheet" href="{{ url('chosen/docsupport/prism.css') }}">
+    <link rel="stylesheet" href="{{ url('chosen/chosen.css') }}">
     <!-- core CSS -->
-    <link href="/css/app.css" rel="stylesheet">
+    <link href="{{ url('css/app.css') }}" rel="stylesheet">
     <link href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
-    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <link href="{{ url('/css/font-awesome.min.css') }}" rel="stylesheet">
 
 </head>
 <body>
@@ -60,8 +60,9 @@
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a>Настройки</a></li>
-                                    <li><a>Мои профайлы</a></li>
+                                    <li><a href="{{ url('/settings') }}">Настройки</a></li>
+                                    <li><a href="{{ url('/my_profiles') }}">Мои профили</a></li>
+                                    <li><a href="{{ url('/statistic') }}">Статистика</a></li>
                                     <li>
                                         <a href="{{ url('/logout') }}"
                                             onclick="event.preventDefault();
@@ -117,5 +118,6 @@
     </script>
     <script src="/js/bike.js"></script>
     <script src="/js/app.js"></script>
+
 </body>
 </html>

@@ -17,7 +17,6 @@ class ProfileController extends Controller
   {
 
       // sort
-
       if(isset($request->sort)) {
         $sort = $request->sort;
           if($sort == 'name_profile') {
@@ -55,7 +54,7 @@ class ProfileController extends Controller
 
   public function subscribe(Request $request)
   {
-      
+
       $my_profile = Auth::user()->id;
 
       $a = new Subscribe;
@@ -88,6 +87,95 @@ class ProfileController extends Controller
 
       Profile::where('id_profile', $request->id_profile)
                           ->update(['subscribes' => $sub]);
+
+      return back();
+  }
+  /**
+  * my profiles
+  */
+
+  public function my_profiles()
+  {
+      $my_profile = Auth::user()->id;
+
+      $data = [
+        'title' => 'My profiles',
+        'profiles' => Profile::where('id_user',$my_profile)->get()
+      ];
+
+      return view('my_profiles', $data);
+  }
+
+   public function create_profile(Request $request)
+   {
+       $this->validate($request, [
+         'name' => 'required|min:3',
+         'description' => 'required|min:5',
+         'images' => 'image|mimes:jpeg,png,jpg|max:2048',
+         'sex' => 'required'
+        ]);
+
+       $imageName = time().'.'.$request->images->getClientOriginalExtension();
+       $request->images->move(public_path('images/profiles/'."$request->id_user"), $imageName);
+
+
+       $a = new Profile;
+       $a->id_user = $request->id_user;
+       $a->name_profile = $request->name;
+       $a->description = $request->description;
+       $a->avatar = $imageName;
+       $a->sex = $request->sex;
+       $a->likes = 0;
+       $a->subscribes = 0;
+
+       $a->save();
+
+       return redirect('/my_profiles');
+   }
+
+
+   public function edit_profile($id)
+   {
+        {
+         $data = [
+           'title' => 'Edit'
+         ];
+
+        $edit = Profile::where('id_profile', $id)->first();
+
+        return view('edit_profile',$data)->with('edit', $edit);
+       }
+   }
+
+  public function edit_profile_post(Request $request)
+  {
+      $this->validate($request, [
+        'name' => 'required|min:3',
+        'description' => 'required|min:5',
+        'images' => 'image|mimes:jpeg,png,jpg|max:2048',
+        'sex' => 'required'
+       ]);
+
+      $imageName = time().'.'.$request->images->getClientOriginalExtension();
+      $request->images->move(public_path('images/profiles/'."$request->id_user"), $imageName);
+
+      $a = Profile::where('id_profile', $request->id_profile)->update([
+        'id_user' => $request->id_user,
+        'name_profile' => $request->name,
+        'description' => $request->description,
+        'avatar' => $imageName,
+        'sex' => $request->sex,
+        'likes' => $request->likes,
+        'subscribes' => $request->subscribes
+      ]);
+
+      return redirect('/my_profiles');
+  }
+
+  public function my_destroy($id)
+  {
+
+      $a = Profile::where('id_profile', $id)->delete();
 
       return back();
   }

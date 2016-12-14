@@ -17,14 +17,16 @@
 </div>
 <div class="row">
   <div class="col-sm-12">
-    <p class="content_text">{{$publication->text}}</p>
+    <p class="content_text">{{$publication->id_publication}}</p>
     <img src="../img/bike2.jpg" alt="..." class="img-rounded content_img">
   </div>
 </div>
 <!-- # content_footer -->
 <div class="list-group content_footer">
   <div class="list-group-item active">
-    <i class="fa fa-heart" aria-hidden="true"> {{$publication->likes}} </i>
+     <button id="public-like" value="123" class="btn btn-primary">
+        <i class="fa fa-heart" aria-hidden="true"> {{$publication->likes}} </i>
+     </button>
     <i class="fa fa-comment-o i_all_comment" data-toggle="collapse" data-target="#demo{{$publication->id_publication}}" aria-hidden="true">на vue сделаем ?</i>
   </div>
     <div id="demo{{$publication->id_publication}}" class="collapse">
