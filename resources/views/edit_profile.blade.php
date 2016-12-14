@@ -8,7 +8,7 @@
 
               <label for="text" class="col-md-4 control-label">Имя</label>
               <div class="col-md-6">
-              <input id="name" type="name" class="form-control" name="name" value="{{ $edit->name_profile }}" required autofocus>
+              <input id="name" type="name" class="form-control" name="name_profile" value="{{ $edit->name_profile }}" required autofocus>
               </div>
           <br>
           <input type="file" name="images">

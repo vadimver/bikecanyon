@@ -10,15 +10,9 @@
                  </select>
              </div>
          </div><br>
-         <div class="form-group{{ $errors->has('text') ? ' has-error' : '' }}">
-             <div class="col-md-12">
-             <input id="text" type="text" class="form-control" name="text" value="{{ old('name') }}" placeholder="Название" required autofocus>
-             </div>
-         </div><br>
-
          <div>
              <div class="col-md-12">
-             <input id="img" type="text" class="form-control"  placeholder="Текст">
+             <input type="text" name="text" class="form-control"  placeholder="Текст">
              </div>
          </div>
 

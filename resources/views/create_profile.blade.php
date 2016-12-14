@@ -8,13 +8,13 @@
 
               <label for="text" class="col-md-4 control-label">Имя</label>
               <div class="col-md-6">
-              <input id="name" type="name" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
+              <input type="name" class="form-control" name="name_profile">
               </div>
         <br>
           <input type="file" name="images">
               <label for="tags" class="col-md-4 control-label">Описание</label>
               <div class="col-md-6">
-              <textarea id="description" name="description" required autofocus ></textarea>
+              <textarea name="description" required autofocus ></textarea>
               </div>
           <div>
               <label for="tags" class="col-md-4 control-label">Пол</label>

@@ -21,13 +21,20 @@ class PublicationController extends Controller
 
       $data = [
         'title' => 'Today affairs',
-        'publications' => Publication::leftJoin('profiles', function($join) {
+        'publications' => Publication::
+        select('publications.*', 'profiles.name_profile', 'tags.name_tag')
+        ->leftJoin('profiles', function($join) {
           $join->on('publications.id_profile', '=', 'profiles.id_profile');
-        })->leftJoin('tags', function($join) {
+        })
+        ->leftJoin('tags', function($join) {
           $join->on('publications.tags', '=', 'tags.id_tag');
-        })->get(),
+        })
+        ->get(),
 
-        'comments' => Comment::all()
+        'comments' => Comment::
+          leftJoin('profiles', function($join) {
+          $join->on('comments.id_profile', '=', 'profiles.id_profile');})
+          ->get()
       ];
 
       return view('all', $data);
@@ -90,7 +97,7 @@ class PublicationController extends Controller
         ]);
 
        $imageName = time().'.'.$request->images->getClientOriginalExtension();
-       $request->images->move(public_path('images/'."$request->id_user"), $imageName);
+       $request->images->move(public_path('images/publications/'."$request->id_user"), $imageName);
 
 
        $a = new Publication;
@@ -103,6 +110,8 @@ class PublicationController extends Controller
 
        $a->save();
 
-       return redirect('/tags');
+
+
+       return redirect('/');
    }
 }
