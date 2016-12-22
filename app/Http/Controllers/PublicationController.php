@@ -13,6 +13,7 @@ use App\Comment;
 use App\Tag;
 use App\Profile;
 use App\Subscribe;
+use App\Like;
 
 class PublicationController extends Controller
 {
@@ -30,7 +31,6 @@ class PublicationController extends Controller
           $join->on('publications.tags', '=', 'tags.id_tag');
         })
         ->get(),
-
         'comments' => Comment::
           leftJoin('profiles', function($join) {
           $join->on('comments.id_profile', '=', 'profiles.id_profile');})
@@ -88,30 +88,65 @@ class PublicationController extends Controller
 
     public function create(Request $request)
    {
-
-
        $this->validate($request, [
          'text' => 'required|min:5',
          'tags' => 'required',
          'images' => 'required|image|mimes:jpeg,png,jpg|max:2048'
         ]);
 
+       if( isset($request->images)) {
        $imageName = time().'.'.$request->images->getClientOriginalExtension();
        $request->images->move(public_path('images/publications/'."$request->id_user"), $imageName);
-
+       $a->img = $imageName;
+       } elseif($request->video) {
+         $a->video = $request->video;
+       }
 
        $a = new Publication;
        $a->text = $request->text;
        $a->tags = $request->tags;
-       $a->img = $imageName;
-       $a->video = 123;
        $a->id_profile = $request->id_user;
-       $a->likes = 0;
+       $a->likes = 1;
+
+
 
        $a->save();
 
-
+       // get last id publication
+       $last_post_id = Publication::max('id_publication');
+       $post_id =  $last_post_id;
+       $a = new Like;
+       $a->user_id = Auth::user()->id;
+       $a->post_id = $post_id;
+       $a->save();
 
        return redirect('/');
    }
+
+   public function pub_like(Request $request)
+   {
+
+      $have = Like::where('post_id', $_POST['postid'])->pluck('user_id');
+
+      if($have[0] != Auth::user()->id) {
+
+      $a = new Like;
+      $a->user_id = Auth::user()->id;
+      $a->post_id = $request->postid;
+      $a->save();
+
+      $likes = Publication::where('id_publication', $request->postid)->pluck('likes');
+      $plus = $likes[0] + 1;
+
+      Publication::where('id_publication', $request->postid)
+                          ->update(['likes' => $plus]);
+
+      echo $plus;
+      } else {
+      $likes = Publication::where('id_publication', $request->postid)->pluck('likes');
+      echo $likes[0];
+    }
+   }
+
+
 }

@@ -1,6 +1,12 @@
 
 @foreach ($publications as $publication)
+    <?php $pub = 0; ?>
+    @foreach ($comments as $comment)
+    @if ($publication->id_publication == $comment->id_publication)
+    <?php $pub++; ?>
+    @endif
 
+    @endforeach
 <!-- # content_block -->
 <div class="container content_block">
 <div class="row">
@@ -24,15 +30,14 @@
 <!-- # content_footer -->
 <div class="list-group content_footer">
   <div class="list-group-item active">
-     <button id="public-like" value="123" class="btn btn-primary">
-        <i class="fa fa-heart" aria-hidden="true"> {{$publication->likes}} </i>
-     </button>
-    <i class="fa fa-comment-o i_all_comment" data-toggle="collapse" data-target="#pub{{$publication->id_publication}}" aria-hidden="true">????</i>
+
+         <button value="{{$publication->id_publication}}" class="btn btn-primary public_like">
+            <i id="id_{{$publication->id_publication}}" class="fa fa-heart" aria-hidden="true">{{$publication->likes}}</i>
+         </button>
+
+    <i class="fa fa-comment-o i_all_comment" data-toggle="collapse" data-target="#pub{{$publication->id_publication}}" aria-hidden="true">{{$pub}}</i>
   </div>
     <div id="pub{{$publication->id_publication}}" class="collapse">
-
-       @foreach ($comments as $comment)
-       @if ($publication->id_publication == $comment->id_publication)
 
            <!-- # comment -->
            <div class="comment">
@@ -42,17 +47,18 @@
               <p class="comment_text">{{$comment->text}}</p>
            </div>
           <!-- / comment -->
-       @endif
 
-      @endforeach
       <form accept-charset="UTF-8" action="{{ url('/new_comment') }}" method="POST">
           <input type="hidden" name="_token" value="{{ csrf_token() }}">
           <input type="hidden" value="{{$publication->id_publication}}" name="id_publication">
           <input type="text" class="form-control add_comment" name="text" placeholder="Добавить комментарий">
       </form>
+
     </div>
 </div>
 <!-- / content_footer -->
 </div>
 <!-- / content_block -->
+
+
 @endforeach

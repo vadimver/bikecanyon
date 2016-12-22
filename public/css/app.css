@@ -51,6 +51,27 @@ i{
 }
 
 /* stop main content */
+
+/* start add_publication */
+.image_hide{
+  display: none!important;
+}
+
+.video_hide{
+  display: none;
+}
+
+#iimg_pick{
+  display: block!important;
+}
+
+#vvideo_pick{
+  display: block;
+}
+
+
+
+/* stop add_publication */
 /* start profile */
 .profiles_block{
   margin-top: 70px;

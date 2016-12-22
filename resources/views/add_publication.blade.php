@@ -17,18 +17,21 @@
          </div>
 
          <div>
-             <input type="radio" name="visual" value="img">
-             <input type="radio" name="visual" value="video">
-             <input type="radio" name="visual" value="non">
+             <input type="radio" name="visual" value="img_pick" v-model="picked">
+             <input type="radio" name="visual" value="video_pick" v-model="picked">
+             <input type="radio" name="visual" value="non_pick" v-model="picked">
          </div>
 
          <input type="hidden" name="_token" value="{{ csrf_token() }}">
          <input type="hidden" name="id_user" value="{{ Auth::user()->id }}">
 
-         <input type="file" name="images">
-         <input class="video" type="text" name="video" placeholder="Ссылка на видео">
+         <input class="image_hide" id="i@{{picked}}" type="file" name="images">
+         <input class="video_hide" id="v@{{picked}}" type="text" name="video" placeholder="Ссылка на видео">
          <button type="submit" class="btn btn-primary">Добавить</button>
      </form>
   </div>
+
+
+</th>
 
   @stop

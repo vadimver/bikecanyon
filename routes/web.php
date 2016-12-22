@@ -33,6 +33,7 @@ Route::get('/subscribe', 'PublicationController@subscribe');
 Route::any('/tags', 'PublicationController@tags');
 Route::get('/add_publication', 'PublicationController@add_publication');
 Route::post('/new_publication', 'PublicationController@create');
+Route::post('/test', 'PublicationController@pub_like' );
 
 # Settings
 Route::get('/settings', 'SettingsController@settings');
@@ -43,3 +44,6 @@ Route::get('/statistic', 'StatisticController@statistic');
 
 # Auth
 Auth::routes();
+
+
+Route::post('/pub_like', 'PublicationController@pub_like');

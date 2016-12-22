@@ -13,10 +13,14 @@
     <link rel="stylesheet" href="{{ url('chosen/docsupport/style.css') }}">
     <link rel="stylesheet" href="{{ url('chosen/docsupport/prism.css') }}">
     <link rel="stylesheet" href="{{ url('chosen/chosen.css') }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <!-- core CSS -->
     <link href="{{ url('css/app.css') }}" rel="stylesheet">
     <link href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
     <link href="{{ url('/css/font-awesome.min.css') }}" rel="stylesheet">
+
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/vue.resource/1.0.3/vue-resource.min.js"></script>
 
 </head>
 <body>
@@ -38,8 +42,12 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <ul class="nav navbar-nav">
                       <li><a href="/tags">Теги</a></li>
+                      @if (isset(Auth::user()->id))
                       <li><a href="/subscribe">Подписки</a></li>
+                      @endif
+                      @if (isset(Auth::user()->id))
                       <li class="active"><a href="/list">Профили</a></li>
+                      @endif
                       @if (isset(Auth::user()->id))
                             <li><a href="/add_publication">Добавить публикацию</a></li>
                       @endif
@@ -101,7 +109,7 @@
     </footer>
     <!-- Bootstrap core JavaScript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+
     <script src="/chosen/chosen.jquery.js" type="text/javascript"></script>
     <script src="/chosen/docsupport/prism.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript">
