@@ -28,7 +28,7 @@ Route::get('/my_destroy/{id}', 'ProfileController@my_destroy');
 Route::post('/new_comment', 'CommentController@create');
 
 # Publication
-Route::get('/', 'PublicationController@all');
+Route::any('/', 'PublicationController@all');
 Route::get('/subscribe', 'PublicationController@subscribe');
 Route::any('/tags', 'PublicationController@tags');
 Route::get('/add_publication', 'PublicationController@add_publication');

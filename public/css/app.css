@@ -69,7 +69,9 @@ i{
   display: block;
 }
 
-
+.before-choise-non{
+  display: none;
+}
 
 /* stop add_publication */
 /* start profile */

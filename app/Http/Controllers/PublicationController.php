@@ -17,12 +17,17 @@ use App\Like;
 
 class PublicationController extends Controller
 {
-    public function all()
+    public function all(Request $request)
     {
-
+      if( isset($request->search)) {
+        $search = $request->search;
+      } else {
+        $search = '';
+      }
       $data = [
         'title' => 'Today affairs',
         'publications' => Publication::
+        where('text', 'like', "%$search%")->
         select('publications.*', 'profiles.name_profile', 'tags.name_tag')
         ->leftJoin('profiles', function($join) {
           $join->on('publications.id_profile', '=', 'profiles.id_profile');
@@ -30,7 +35,7 @@ class PublicationController extends Controller
         ->leftJoin('tags', function($join) {
           $join->on('publications.tags', '=', 'tags.id_tag');
         })
-        ->get(),
+        ->orderBy('id_publication', 'DESC')->get(),
         'comments' => Comment::
           leftJoin('profiles', function($join) {
           $join->on('comments.id_profile', '=', 'profiles.id_profile');})
@@ -49,7 +54,7 @@ class PublicationController extends Controller
 
       $data = [
         'title' => 'Today affairs',
-        'publications' => Publication::whereIn('id_profile', $sub)->paginate(12),
+        'publications' => Publication::whereIn('id_profile', $sub)->orderBy('id_publication', 'DESC')->paginate(12),
         'comments' => Comment::all()
       ];
 
@@ -67,7 +72,7 @@ class PublicationController extends Controller
 
       $data = [
         'title' => 'Today affairs',
-        'publications' => Publication::whereIn('tags', $id_test)->paginate(12),
+        'publications' => Publication::whereIn('tags', $id_test)->orderBy('id_publication', 'DESC')->paginate(12),
         'comments' => Comment::all(),
         'tags' => Tag::all()
       ];
@@ -80,7 +85,8 @@ class PublicationController extends Controller
 
       $data = [
         'title' => 'Today affairs',
-        'tags' => Tag::all()
+        'tags' => Tag::all(),
+        'profiles' => Profile::where('id_user', Auth::user()->id)->get()
       ];
 
       return view('add_publication', $data);
@@ -88,27 +94,33 @@ class PublicationController extends Controller
 
     public function create(Request $request)
    {
-       $this->validate($request, [
-         'text' => 'required|min:5',
-         'tags' => 'required',
-         'images' => 'required|image|mimes:jpeg,png,jpg|max:2048'
-        ]);
+       $a = new Publication;
 
        if( isset($request->images)) {
+         $this->validate($request, [
+           'text' => 'required|min:5',
+           'tags' => 'required',
+           'images' => 'required|image|mimes:jpeg,png,jpg|max:2048'
+          ]);
+
        $imageName = time().'.'.$request->images->getClientOriginalExtension();
        $request->images->move(public_path('images/publications/'."$request->id_user"), $imageName);
-       $a->img = $imageName;
+         $a->img = $imageName;
        } elseif($request->video) {
+         $this->validate($request, [
+           'text' => 'required|min:5',
+           'tags' => 'required',
+           'video' => 'required'
+          ]);
+
          $a->video = $request->video;
        }
 
-       $a = new Publication;
        $a->text = $request->text;
        $a->tags = $request->tags;
-       $a->id_profile = $request->id_user;
+       $a->id_profile = $request->id_profile;
+       $a->id_user = $request->id_user;
        $a->likes = 1;
-
-
 
        $a->save();
 
@@ -121,6 +133,7 @@ class PublicationController extends Controller
        $a->save();
 
        return redirect('/');
+
    }
 
    public function pub_like(Request $request)

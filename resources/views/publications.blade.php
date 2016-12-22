@@ -24,7 +24,13 @@
 <div class="row">
   <div class="col-sm-12">
     <p class="content_text">{{$publication->text}}</p>
+    @if ($publication->img != NULL)
     <img src="../images/publications/{{$publication->id_profile}}/{{$publication->img}}" alt="..." class="img-rounded content_img">
+    @endif
+    @if ($publication->video != NULL)
+    <iframe width="100%" height="400px" src="{{$publication->video}}" frameborder="0" allowfullscreen></iframe>
+    @endif
+
   </div>
 </div>
 <!-- # content_footer -->
@@ -32,7 +38,7 @@
   <div class="list-group-item active">
 
          <button value="{{$publication->id_publication}}" class="btn btn-primary public_like">
-            <i id="id_{{$publication->id_publication}}" class="fa fa-heart" aria-hidden="true">{{$publication->likes}}</i>
+            <i id="id_{{$publication->id_publication}}" class="fa fa-plus-circle" aria-hidden="true">{{$publication->likes}}</i>
          </button>
 
     <i class="fa fa-comment-o i_all_comment" data-toggle="collapse" data-target="#pub{{$publication->id_publication}}" aria-hidden="true">{{$pub}}</i>
@@ -44,6 +50,7 @@
               <i class="fa fa-user-circle" aria-hidden="true"></i>
               <span>{{$comment->name_profile}} </span>
               <i class="fa fa-heart i_comment" aria-hidden="true"> {{$comment->likes}} </i>
+
               <p class="comment_text">{{$comment->text}}</p>
            </div>
           <!-- / comment -->

@@ -90,8 +90,9 @@
                         @endif
                     </ul>
 
-                    <form class="navbar-form navbar-right">
-                      <input type="text" class="form-control" placeholder="Поиск">
+                    <form action="{{ url('/') }}" method="POST" class="navbar-form navbar-right">
+                      <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                      <input type="text" name="search" class="form-control" placeholder="Поиск">
                     </form>
                 </div>
             </div>
