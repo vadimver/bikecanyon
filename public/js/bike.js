@@ -60,7 +60,7 @@ $(document).ready(function(){
            data: post_elements,
            success: function(data) {
              var get = JSON.parse(data);
-                // вставить вот сюда
+                
              var comments = $('#col_' + get.id_publication).text();
              var commentsPlus = +comments + 1;
              $('#col_' + get.id_publication).text(commentsPlus);
