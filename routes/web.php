@@ -26,6 +26,7 @@ Route::get('/my_destroy/{id}', 'ProfileController@my_destroy');
 
 # Comment
 Route::post('/new_comment', 'CommentController@create');
+Route::post('/comment_like', 'CommentController@comment_like');
 
 # Publication
 Route::any('/', 'PublicationController@all');

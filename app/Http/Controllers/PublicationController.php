@@ -37,8 +37,8 @@ class PublicationController extends Controller
         })
         ->orderBy('id_publication', 'DESC')->get(),
         'comments' => Comment::
-          leftJoin('profiles', function($join) {
-          $join->on('comments.id_profile', '=', 'profiles.id_profile');})
+          leftJoin('users', function($join) {
+          $join->on('comments.id_user', '=', 'users.id');})
           ->get()
       ];
 
@@ -52,10 +52,23 @@ class PublicationController extends Controller
       // get all subscribes
       $sub = Subscribe::where('my_profile', $id)->pluck('sub_profile');
 
+
       $data = [
         'title' => 'Today affairs',
-        'publications' => Publication::whereIn('id_profile', $sub)->orderBy('id_publication', 'DESC')->paginate(12),
-        'comments' => Comment::all()
+        'publications' => Publication::
+        select('publications.*', 'profiles.name_profile', 'tags.name_tag')
+        ->whereIn('publications.id_profile', $sub)
+        ->leftJoin('profiles', function($join) {
+          $join->on('publications.id_profile', '=', 'profiles.id_profile');
+        })
+        ->leftJoin('tags', function($join) {
+          $join->on('publications.tags', '=', 'tags.id_tag');
+        })
+        ->orderBy('id_publication', 'DESC')->get(),
+        'comments' => Comment::
+        leftJoin('users', function($join) {
+        $join->on('comments.id_user', '=', 'users.id');})
+          ->get()
       ];
 
       return view('subscribe', $data);
@@ -72,8 +85,19 @@ class PublicationController extends Controller
 
       $data = [
         'title' => 'Today affairs',
-        'publications' => Publication::whereIn('tags', $id_test)->orderBy('id_publication', 'DESC')->paginate(12),
-        'comments' => Comment::all(),
+        'publications' => Publication::whereIn('tags', $id_test)
+        ->select('publications.*', 'profiles.name_profile', 'tags.name_tag')
+        ->leftJoin('profiles', function($join) {
+          $join->on('publications.id_profile', '=', 'profiles.id_profile');
+        })
+        ->leftJoin('tags', function($join) {
+          $join->on('publications.tags', '=', 'tags.id_tag');
+        })
+        ->orderBy('id_publication', 'DESC')->get(),
+        'comments' => Comment::
+          leftJoin('users', function($join) {
+          $join->on('comments.id_user', '=', 'users.id');})
+          ->get(),
         'tags' => Tag::all()
       ];
 
@@ -104,8 +128,8 @@ class PublicationController extends Controller
           ]);
 
        $imageName = time().'.'.$request->images->getClientOriginalExtension();
-       $request->images->move(public_path('images/publications/'."$request->id_user"), $imageName);
-         $a->img = $imageName;
+       $request->images->move(public_path('images/publications/'."$request->id_profile"), $imageName);
+       $a->img = $imageName;
        } elseif($request->video) {
          $this->validate($request, [
            'text' => 'required|min:5',
@@ -124,12 +148,15 @@ class PublicationController extends Controller
 
        $a->save();
 
+       // add my like
        // get last id publication
        $last_post_id = Publication::max('id_publication');
        $post_id =  $last_post_id;
-       $a = new Like;
-       $a->user_id = Auth::user()->id;
-       $a->post_id = $post_id;
+       $like = new Like;
+       $like->user_id = Auth::user()->id;
+       $like->post_id = $post_id;
+
+       $like->save();
        $a->save();
 
        return redirect('/');
@@ -139,27 +166,38 @@ class PublicationController extends Controller
    public function pub_like(Request $request)
    {
 
-      $have = Like::where('post_id', $_POST['postid'])->pluck('user_id');
+      $haves = Like::where('post_id', $_POST['postid'])->pluck('user_id');
 
-      if($have[0] != Auth::user()->id) {
 
-      $a = new Like;
-      $a->user_id = Auth::user()->id;
-      $a->post_id = $request->postid;
-      $a->save();
+      // if isset my comments
+      $have_like = 0;
+      foreach($haves as $have) {
+         if($have == Auth::user()->id) {
+             $have_like = 1;
+           }
+      }
 
-      $likes = Publication::where('id_publication', $request->postid)->pluck('likes');
-      $plus = $likes[0] + 1;
+      if( $have_like == 0 ) {
+          $a = new Like;
+          $a->user_id = Auth::user()->id;
+          $a->post_id = $request->postid;
+          $a->save();
 
-      Publication::where('id_publication', $request->postid)
-                          ->update(['likes' => $plus]);
+          $likes = Publication::where('id_publication', $request->postid)->pluck('likes');
+          $plus = $likes[0] + 1;
 
-      echo $plus;
+          Publication::where('id_publication', $request->postid)
+                              ->update(['likes' => $plus]);
+          echo $plus;
+
       } else {
-      $likes = Publication::where('id_publication', $request->postid)->pluck('likes');
-      echo $likes[0];
-    }
+          $likes = Publication::where('id_publication', $request->postid)->pluck('likes');
+          echo $likes[0];
+         }
+
    }
+
+
 
 
 }

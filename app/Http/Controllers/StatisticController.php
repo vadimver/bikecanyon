@@ -18,8 +18,8 @@ class StatisticController extends Controller
   public function statistic()
   {
         $id_user = Auth::user()->id;
-        $com =  Comment::where('id_profile', $id_user )->get();
-        $pub =  Publication::where('id_profile', $id_user )->get();
+        $com =  Comment::where('id_user', $id_user )->get();
+        $pub =  Publication::where('id_user', $id_user )->get();
         $date = User::where('id', $id_user )->get();
         $prof = Profile::where('id_user', $id_user )->get();
 

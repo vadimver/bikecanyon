@@ -8,7 +8,8 @@
 .content_block{
   margin-top: 50px;
   background: white;
-  width: 60%;
+  width: 45%;
+  min-width: 300px;
 }
 
 .all_content{
@@ -19,12 +20,17 @@
 }
 
 .content_text{
+  margin-top: 20px;
   margin-left: 15px;
+}
+
+.content-tag{
+ margin-left: 100px;
 }
 .content_footer{
   margin-top: 15px;
 }
-.content_tags{
+.content_date{
   position: absolute;
   right: 15px;
 }
@@ -47,9 +53,11 @@ i{
 }
 .comment{
   position: relative;
-  margin-top: 5px;
 }
 
+.comment_text{
+  margin: 0;
+}
 /* stop main content */
 
 /* start add_publication */
@@ -93,6 +101,12 @@ i{
 }
 
 /* stop profile */
+
+/* start tags */
+.chosen-select{
+  min-width: 250px;
+}
+/* stop tags */
 /* all */
 .sort{
   margin-top: 70px;
