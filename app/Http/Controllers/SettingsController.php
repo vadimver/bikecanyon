@@ -18,9 +18,25 @@ class SettingsController extends Controller
   {
         $user_id = Auth::user()->id;
 
+        $com =  Comment::where('id_user', $user_id)->get();
+        $pub =  Publication::where('id_user', $user_id)->get();
+        $date = User::where('id', $user_id)->get();
+        $prof = Profile::where('id_user', $user_id)->get();
+        $likes = Profile::where('id_user', $user_id)->sum('likes');
+
+        $comments = count($com);
+        $publications = count($pub);
+        $profiles = count($prof);
+
+
         $data = [
-            'title' => 'Today affairs',
-            'settings' => User::where('id', $user_id )->get()
+            'title' => 'Настройки',
+            'settings' => User::where('id', $user_id )->get(),
+            'comments' => $comments,
+            'publications' => $publications,
+            'likes' => $likes,
+            'date' => $date,
+            'profiles' => $profiles
           ];
 
       return view('settings', $data);

@@ -22,7 +22,7 @@ class CreatePublicationsTable extends Migration
             $table->string('img');
             $table->string('video');
             $table->integer('likes');
-            $table->integer('tags');
+            $table->string('tags');
             $table->timestamps();
 
       });

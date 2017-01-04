@@ -68,9 +68,12 @@ i{
 /* stop main content */
 
 /* start add_publication */
-.add_visual_block{
-  margin-left: 15px;
+.form-group-add{
+  width: 400px;
+  margin-bottom: 20px;
+  margin-top: 20px;
 }
+
 .image_hide{
   display: none!important;
 }
@@ -125,6 +128,30 @@ i{
   margin-top: 70px;
   text-align: center;
 }
+
+/* settings */
+li{
+    list-style-type: none!important;
+}
+.settings-main{
+  text-align: center;
+}
+
+.settings-main input{
+  width: 250px;
+}
+/* statistic */
+.statistic-main{
+  margin-top: 100px;
+}
+.statistic-main p{
+  width: 250px;
+  margin: 20px auto;
+}
+
+
+/* stop statistic */
+
  /* Sticky footer styles
 -------------------------------------------------- */
 html {

@@ -45,8 +45,23 @@
       <div class="col-sm-4">
             <i class="fa fa-comment-o i_all_comment" id="col_{{$publication->id_publication}}" data-toggle="collapse" data-target="#pub{{$publication->id_publication}}" aria-hidden="true">{{$pub}}</i>
       </div>
-      <div class="col-sm-4">
-            <span class="content-tag">{{$publication->name_tag}}</span>
+      <div class="col-sm-2 col-sm-offset-2">
+            <div class="btn-group">
+                <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Теги <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                   <?php
+                      $tags = explode(" ", $publication['tags']);
+                      $count_tags = count($tags);
+                      if(isset($tags)){
+                        for($i = 0; $i < $count_tags; $i++){
+                          echo $tags[$i] . "<br><br>";
+                        }
+                      }
+                   ?>
+                </ul>
+            </div>
       </div>
 
   </div>

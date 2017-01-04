@@ -37,7 +37,7 @@ class ProfileController extends Controller
             'menu_list' => 'active',
             'profiles' => Profile::leftJoin('subscribes', function($join) {
               $join->on('profiles.id_profile', '=', 'subscribes.sub_profile');
-            })->where('name_profile',"$search")->orderBy("$sort", "$inc")->get()
+            })->where('description','like', "%$search%")->orderBy("$sort", "$inc")->get()
           ];
         } else {
           $data = [

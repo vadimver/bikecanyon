@@ -28,12 +28,9 @@ class PublicationController extends Controller
         'title' => 'Today affairs',
         'publications' => Publication::
         where('text', 'like', "%$search%")->
-        select('publications.*', 'profiles.name_profile', 'tags.name_tag')
+        select('publications.*', 'profiles.name_profile')
         ->leftJoin('profiles', function($join) {
           $join->on('publications.id_profile', '=', 'profiles.id_profile');
-        })
-        ->leftJoin('tags', function($join) {
-          $join->on('publications.tags', '=', 'tags.id_tag');
         })
         ->orderBy('id_publication', 'DESC')->get(),
         'comments' => Comment::
@@ -78,22 +75,26 @@ class PublicationController extends Controller
     public function tags()
     {
       if(isset($_POST['list_tags'])) {
-          $id_tags = $_POST['list_tags'];
+          $name_tags = $_POST['list_tags'];
       } else {
-          $id_tags[0] = 0;
+          $name_tags[0] = 0;
       }
+
 
 
       $data = [
         'title' => 'Теги',
         'menu_tags' => 'active',
-        'publications' => Publication::whereIn('tags', $id_tags)
-        ->select('publications.*', 'profiles.name_profile', 'tags.name_tag')
+        // описк whereIn('tags', 'like', "%$id_tags%")
+        'publications' => Publication::
+        select('publications.*', 'profiles.name_profile')
+        ->Where(function ($query) use($name_tags) {
+             for ($i = 0; $i < count($name_tags); $i++){
+                $query->orwhere('tags', 'like',  '%' . $name_tags[$i] .'%');
+             }
+        })
         ->leftJoin('profiles', function($join) {
           $join->on('publications.id_profile', '=', 'profiles.id_profile');
-        })
-        ->leftJoin('tags', function($join) {
-          $join->on('publications.tags', '=', 'tags.id_tag');
         })
         ->orderBy('id_publication', 'DESC')->get(),
         'comments' => Comment::
@@ -121,6 +122,15 @@ class PublicationController extends Controller
 
     public function create(Request $request)
    {
+       if(isset($_POST['list_tags'])) {
+           $id_tags = $_POST['list_tags'];
+       } else {
+           $id_tags[0] = '';
+       }
+
+       $test = implode(' ', $id_tags);
+
+
        $a = new Publication;
 
        if( isset($request->images)) {
@@ -144,7 +154,7 @@ class PublicationController extends Controller
        }
 
        $a->text = $request->text;
-       $a->tags = $request->tags;
+       $a->tags = htmlspecialchars($test);
        $a->id_profile = $request->id_profile;
        $a->id_user = $request->id_user;
        $a->likes = 1;
@@ -163,6 +173,7 @@ class PublicationController extends Controller
        $a->save();
 
        return redirect('/');
+
 
    }
 

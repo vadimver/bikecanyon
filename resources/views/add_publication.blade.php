@@ -3,33 +3,26 @@
      <form enctype="multipart/form-data" accept-charset="UTF-8" action="{{ url('/new_publication') }}" method="POST">
       <div class="row">
         <div class="col-sm-4 col-sm-offset-4">
-         <div>
              <div class="col-md-12">
+                 
                  <select name="id_profile" v-model="selected" class="form-control">
-                     <option selected value="non">Выберите или создайте профиль</option>
+                     <option selected value="non" disabled>Выберите или создайте профиль</option>
                      @foreach ($profiles as $profile)
                      <option value="{{$profile->id_profile}}">{{$profile->name_profile}}</option>
                      @endforeach
                  </select>
              </div>
-         </div><br>
          <!-- # before-choise -->
-         <div class="before-choise-@{{selected}}">
-             <div>
-                 <div class="col-md-12">
-                     <select name="tags" class="form-control">
-                         @foreach ($tags as $tag)
-                         <option value="{{$tag->id_tag}}">{{$tag->name_tag}}</option>
-                         @endforeach
-                     </select>
-                 </div>
-             </div><br>
-             <div>
-                 <div class="col-md-12">
-                 <textarea name="text" class="form-control" maxlength = "3000" rows='10' placeholder="Максимум 3000 символов"></textarea>
-                 </div>
+         <div class="before-choise-@{{selected}} col-md-12">
+              <div class="form-group-add">
+                   <select name='list_tags[]' data-placeholder="Выбрать тег" class="chosen-select" multiple>
+                     <option value=""></option>
+                     @foreach ($tags as $tag)
+                     <option>{{$tag->name_tag}}</option>
+                     @endforeach
+                   </select>
              </div>
-
+             <textarea name="text" class="form-control" maxlength="3000" rows='10' placeholder="Максимум 3000 символов"></textarea>
              <div class="add_visual_block">
                <div class="radio">
                 <label>
@@ -61,6 +54,10 @@
         </div>
       </div>
     </form>
+
+
+
+
 
 
 

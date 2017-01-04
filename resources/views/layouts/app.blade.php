@@ -22,7 +22,10 @@
 
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/vue.resource/1.0.3/vue-resource.min.js"></script>
-
+    <style type="text/css" media="all">
+    /* fix rtl for demo */
+    .chosen-rtl .chosen-drop { left: -9000px; }
+    </style>
 </head>
 <body>
   @if (!isset($page))
@@ -73,7 +76,6 @@
                                 <ul class="dropdown-menu" role="menu">
                                     <li><a href="{{ url('/settings') }}">Настройки</a></li>
                                     <li><a href="{{ url('/my_profiles') }}">Мои профили</a></li>
-                                    <li><a href="{{ url('/statistic') }}">Статистика</a></li>
                                     <li>
                                         <a href="{{ url('/logout') }}"
                                             onclick="event.preventDefault();
@@ -116,21 +118,9 @@
 
     <script src="/chosen/chosen.jquery.js" type="text/javascript"></script>
     <script src="/chosen/docsupport/prism.js" type="text/javascript" charset="utf-8"></script>
-    <script type="text/javascript">
-      var config = {
-        '.chosen-select'           : {},
-        '.chosen-select-deselect'  : {allow_single_deselect:true},
-        '.chosen-select-no-single' : {disable_search_threshold:10},
-        '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
-        '.chosen-select-width'     : {width:"95%"}
-      }
-      for (var selector in config) {
-        $(selector).chosen(config[selector]);
-      }
-    </script>
+    <script src="/js/chosen_script.js" type="text/javascript"></script>
     <script src="/js/bike.js"></script>
     <script src="/js/app.js"></script>
-    <script src="http://gregpike.net/demos/bootstrap-file-input/bootstrap.file-input.js"></script>
 
 </body>
 </html>

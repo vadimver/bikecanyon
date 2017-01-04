@@ -39,9 +39,7 @@ Route::post('/test', 'PublicationController@pub_like' );
 # Settings
 Route::get('/settings', 'SettingsController@settings');
 Route::post('/update_settings', 'SettingsController@update_settings');
-
-# Statistic
-Route::get('/statistic', 'StatisticController@statistic');
+Route::get('/statistic', 'SettingsController@statistic');
 
 # Auth
 Auth::routes();

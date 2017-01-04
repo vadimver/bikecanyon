@@ -2,7 +2,6 @@
 
 @section('content')
 
-
 <form action='tags' method='POST'>
    <div class="row">
      <div class="col-sm-8 col-sm-offset-4">
@@ -11,7 +10,7 @@
           <select name='list_tags[]' data-placeholder="Выбрать тег" class="chosen-select" multiple tabindex="4">
             <option value=""></option>
             @foreach ($tags as $tag)
-            <option value="{{$tag->id_tag}}">{{$tag->name_tag}}</option>
+            <option>{{$tag->name_tag}}</option>
             @endforeach
           </select>
 
@@ -27,15 +26,11 @@
 
           ?>
           @foreach ($tags_select as $tag_select)
-              @foreach ($tags as $tag)
-                 @if ($tag_select == $tag->id_tag)
-                   {{$tag->name_tag}} <br>
-                 @endif
-              @endforeach
+              {{$tag_select}} <br>
           @endforeach
-        <?php
-        }
-        ?>
+          <?php
+          }
+          ?>
 
     </div>
 
