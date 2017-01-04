@@ -4,12 +4,11 @@
 
 
 <form action='tags' method='POST'>
-  <div id="container">
-    <div id="content">
+   <div class="row">
+     <div class="col-sm-8 col-sm-offset-4">
       <div class="side-by-side clearfix">
         <div class="form-group">
-
-          <select name='test[]' data-placeholder="Выбрать тег" class="chosen-select" multiple tabindex="4">
+          <select name='list_tags[]' data-placeholder="Выбрать тег" class="chosen-select" multiple tabindex="4">
             <option value=""></option>
             @foreach ($tags as $tag)
             <option value="{{$tag->id_tag}}">{{$tag->name_tag}}</option>
@@ -20,10 +19,11 @@
           <button class="btn btn-sm btn-primary">Выбрать</button>
         </div>
       </div>
+
           <p>Выбранные теги:</p>
           <?php
-          if( isset($_POST['test'])) {
-             $tags_select = $_POST['test'];
+          if( isset($_POST['list_tags'])) {
+             $tags_select = $_POST['list_tags'];
 
           ?>
           @foreach ($tags_select as $tag_select)
@@ -36,12 +36,12 @@
         <?php
         }
         ?>
+
     </div>
+
   </div>
 </form>
-<div class="selected_tags">
 
-</div>
 @include('publications')
 
 @stop

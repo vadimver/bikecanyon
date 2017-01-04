@@ -42,7 +42,7 @@ class PublicationController extends Controller
           ->get()
       ];
 
-      return view('all', $data);
+      return view('all', $data)->with(["page" => "all"]);
     }
 
     public function subscribe()
@@ -54,7 +54,8 @@ class PublicationController extends Controller
 
 
       $data = [
-        'title' => 'Today affairs',
+        'title' => 'Подписки',
+        'menu_subscribe' => 'active',
         'publications' => Publication::
         select('publications.*', 'profiles.name_profile', 'tags.name_tag')
         ->whereIn('publications.id_profile', $sub)
@@ -71,21 +72,22 @@ class PublicationController extends Controller
           ->get()
       ];
 
-      return view('subscribe', $data);
+      return view('subscribe', $data)->with(["page" => "subscribe"]);
     }
 
     public function tags()
     {
-      if(isset($_POST['test'])) {
-          $id_test = $_POST['test'];
+      if(isset($_POST['list_tags'])) {
+          $id_tags = $_POST['list_tags'];
       } else {
-          $id_test[0] = 0;
+          $id_tags[0] = 0;
       }
 
 
       $data = [
-        'title' => 'Today affairs',
-        'publications' => Publication::whereIn('tags', $id_test)
+        'title' => 'Теги',
+        'menu_tags' => 'active',
+        'publications' => Publication::whereIn('tags', $id_tags)
         ->select('publications.*', 'profiles.name_profile', 'tags.name_tag')
         ->leftJoin('profiles', function($join) {
           $join->on('publications.id_profile', '=', 'profiles.id_profile');
@@ -101,19 +103,20 @@ class PublicationController extends Controller
         'tags' => Tag::all()
       ];
 
-      return view('tags', $data);
+      return view('tags', $data)->with(["page" => "tags"]);
     }
 
     public function add_publication()
     {
 
       $data = [
-        'title' => 'Today affairs',
+        'title' => 'Добавление публикаций',
+        'menu_add' => 'active',
         'tags' => Tag::all(),
         'profiles' => Profile::where('id_user', Auth::user()->id)->get()
       ];
 
-      return view('add_publication', $data);
+      return view('add_publication', $data)->with(["page" => "add_publication"]);
     }
 
     public function create(Request $request)

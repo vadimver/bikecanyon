@@ -31,6 +31,7 @@
     <iframe width="100%" height="400px" src="{{$publication->video}}" frameborder="0" allowfullscreen></iframe>
     @endif
     <p class="content_text">{{$publication->text}}</p>
+    <hr>
   </div>
 </div>
 <!-- # content_footer -->
@@ -38,7 +39,7 @@
   <div class="row">
       <div class="col-sm-4">
           <button value="{{$publication->id_publication}}" class="btn btn-primary public_like">
-            <i id="id_{{$publication->id_publication}}" class="fa fa-plus-circle" aria-hidden="true">{{$publication->likes}}</i>
+            <i id="id_{{$publication->id_publication}}" class="fa fa-plus-circle" aria-hidden="true"> {{$publication->likes}}</i>
           </button>
       </div>
       <div class="col-sm-4">

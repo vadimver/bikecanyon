@@ -33,14 +33,16 @@ class ProfileController extends Controller
       if(isset($request->search)) {
         $search = $request->search;
           $data = [
-            'title' => 'Today affairs',
+            'title' => 'Профайлы',
+            'menu_list' => 'active',
             'profiles' => Profile::leftJoin('subscribes', function($join) {
               $join->on('profiles.id_profile', '=', 'subscribes.sub_profile');
             })->where('name_profile',"$search")->orderBy("$sort", "$inc")->get()
           ];
         } else {
           $data = [
-            'title' => 'Today affairs',
+            'title' => 'Профайлы',
+            'menu_list' => 'active',
             'profiles' => Profile::leftJoin('subscribes', function($join) {
               $join->on('profiles.id_profile', '=', 'subscribes.sub_profile');
             })->orderBy("$sort", "$inc")->get()
@@ -49,7 +51,7 @@ class ProfileController extends Controller
 
 
 
-      return view('list', $data);
+      return view('list', $data)->with(["page" => "list"]);
   }
 
   public function subscribe(Request $request)

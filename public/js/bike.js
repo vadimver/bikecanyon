@@ -10,7 +10,7 @@ $(document).ready(function(){
             data: {'postid':postid,"_token": csrftoken},
             dataType: 'html',
             success: function(data){
-              $('#id_'+postid).text(data);
+              $('#id_'+postid).text(' ' + data);
             },
             error: function(xhr, textStatus) {
                 //alert( [ xhr.status, textStatus ] );
@@ -60,7 +60,7 @@ $(document).ready(function(){
            data: post_elements,
            success: function(data) {
              var get = JSON.parse(data);
-                
+
              var comments = $('#col_' + get.id_publication).text();
              var commentsPlus = +comments + 1;
              $('#col_' + get.id_publication).text(commentsPlus);

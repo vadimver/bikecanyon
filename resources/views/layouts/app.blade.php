@@ -16,6 +16,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <!-- core CSS -->
     <link href="{{ url('css/app.css') }}" rel="stylesheet">
+    <link href="{{ url('css/style.css') }}" rel="stylesheet">
     <link href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
     <link href="{{ url('/css/font-awesome.min.css') }}" rel="stylesheet">
 
@@ -24,6 +25,9 @@
 
 </head>
 <body>
+  @if (!isset($page))
+      <?php $page="non"?>;
+  @endif
     <div id="app">
         <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container">
@@ -32,24 +36,23 @@
                     <!-- Collapsed Hamburger -->
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
                         <span class="sr-only">Toggle Navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
+                        <span>Меню</span>
                     </button>
                     <a class="navbar-brand" href="/">BikeCanyon</a>
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <ul class="nav navbar-nav">
-                      <li><a href="/tags">Теги</a></li>
+                      <li class="{{ $page == 'all' ? 'active' : '' }}"><a href="{{ url('/') }}">Все</a></li>
+                      <li class="{{ $page == 'tags' ? 'active' : '' }}"><a href="{{ url('/tags') }}">Теги</a></li>
                       @if (isset(Auth::user()->id))
-                      <li><a href="/subscribe">Подписки</a></li>
+                      <li class="{{ $page == 'subscribe' ? 'active' : '' }}"><a href="/subscribe">Подписки</a></li>
                       @endif
                       @if (isset(Auth::user()->id))
-                      <li class="active"><a href="/list">Профили</a></li>
+                      <li class="{{ $page == 'list' ? 'active' : '' }}"><a href="/list">Профили</a></li>
                       @endif
                       @if (isset(Auth::user()->id))
-                            <li><a href="/add_publication">Добавить публикацию</a></li>
+                      <li class="{{ $page == 'add_publication' ? 'active' : '' }}"><a href="/add_publication">Добавить публикацию</a></li>
                       @endif
 
                     </ul>
@@ -127,6 +130,7 @@
     </script>
     <script src="/js/bike.js"></script>
     <script src="/js/app.js"></script>
+    <script src="http://gregpike.net/demos/bootstrap-file-input/bootstrap.file-input.js"></script>
 
 </body>
 </html>

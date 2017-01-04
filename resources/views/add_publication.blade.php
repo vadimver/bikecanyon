@@ -1,9 +1,11 @@
 @extends('layouts.app')
 @section('content')
      <form enctype="multipart/form-data" accept-charset="UTF-8" action="{{ url('/new_publication') }}" method="POST">
+      <div class="row">
+        <div class="col-sm-4 col-sm-offset-4">
          <div>
              <div class="col-md-12">
-                 <select name="id_profile" v-model="selected">
+                 <select name="id_profile" v-model="selected" class="form-control">
                      <option selected value="non">Выберите или создайте профиль</option>
                      @foreach ($profiles as $profile)
                      <option value="{{$profile->id_profile}}">{{$profile->name_profile}}</option>
@@ -15,7 +17,7 @@
          <div class="before-choise-@{{selected}}">
              <div>
                  <div class="col-md-12">
-                     <select name="tags">
+                     <select name="tags" class="form-control">
                          @foreach ($tags as $tag)
                          <option value="{{$tag->id_tag}}">{{$tag->name_tag}}</option>
                          @endforeach
@@ -24,26 +26,42 @@
              </div><br>
              <div>
                  <div class="col-md-12">
-                 <input type="text" name="text" class="form-control"  placeholder="Текст">
+                 <textarea name="text" class="form-control" maxlength = "3000" rows='10' placeholder="Максимум 3000 символов"></textarea>
                  </div>
              </div>
 
-             <div>
-                 <input type="radio" name="visual" value="img_pick" v-model="picked">
-                 <input type="radio" name="visual" value="video_pick" v-model="picked">
-                 <input type="radio" name="visual" value="non_pick" v-model="picked">
-             </div>
+             <div class="add_visual_block">
+               <div class="radio">
+                <label>
+                  <input type="radio" id="optionsRadios1" name="visual" value="img_pick" v-model="picked" checked>
+                  Вставить фото
+                </label>
+               </div>
+               <div class="radio">
+                <label>
+                  <input type="radio" id="optionsRadios1" name="visual" value="video_pick" v-model="picked" checked>
+                  Вставить видео
+                </label>
+               </div>
+               <div class="radio">
+                <label>
+                  <input type="radio" id="optionsRadios1" name="visual" value="non_pick" v-model="picked" checked>
+                  Только текст
+                </label>
+               </div>
 
-             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-             <input type="hidden" name="id_user" value="{{ Auth::user()->id }}">
+               <input type="hidden" name="_token" value="{{ csrf_token() }}">
+               <input type="hidden" name="id_user" value="{{ Auth::user()->id }}">
 
-             <input class="image_hide" id="i@{{picked}}" type="file" name="images">
-             <input class="video_hide" id="v@{{picked}}" type="text" name="video" placeholder="Ссылка на видео">
-             <button type="submit" class="btn btn-primary">Добавить</button>
-         </div>
-         <!-- / before-set -->
-     </form>
-  </div>
+               <input class="image_hide" id="i@{{picked}}" type="file" name="images">
+               <input class="video_hide" id="v@{{picked}}" type="text" name="video" placeholder="Ссылка на видео">
+               <button type="submit" class="btn btn-primary">Добавить</button>
+        </div>
+        <!-- / before-set -->
+        </div>
+      </div>
+    </form>
+
 
 
   @stop

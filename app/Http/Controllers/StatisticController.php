@@ -23,7 +23,7 @@ class StatisticController extends Controller
         $date = User::where('id', $id_user )->get();
         $prof = Profile::where('id_user', $id_user )->get();
 
-        // как посчитать лайки?
+
         $likes = Profile::where('id_user', $id_user)->sum('likes');
 
         $comments = count($com);
@@ -31,7 +31,7 @@ class StatisticController extends Controller
         $profiles = count($prof);
 
         $data = [
-            'title' => 'Today affairs',
+            'title' => 'Статистика',
             'comments' => $comments,
             'publications' => $publications,
             'likes' => $likes,
