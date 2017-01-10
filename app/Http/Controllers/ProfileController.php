@@ -112,21 +112,33 @@ class ProfileController extends Controller
 
    public function create_profile(Request $request)
    {
+
+       $a = new Profile;
+
+       if (isset($request->images)) {
        $this->validate($request, [
-         'name_profile' => 'required|min:3|unique:profiles',
-         'description' => 'required|min:5',
-         'images' => 'image|mimes:jpeg,png,jpg|max:2048',
-        ]);
+           'name_profile' => 'required|min:3|unique:profiles',
+           'description' => 'required|min:5',
+           'images' => 'image|mimes:jpeg,png,jpg|max:2048',
+       ]);
+
 
        $imageName = $request->id_user . '_' . time().'.'.$request->images->getClientOriginalExtension();
        $request->images->move(public_path('images/profiles/'), $imageName);
+       $a->avatar = $imageName;
+       } else {
+         $this->validate($request, [
+             'name_profile' => 'required|min:3|unique:profiles',
+             'description' => 'required|min:5'
+         ]);
+
+         $a->avatar = 'default.jpg';
+       }
 
 
-       $a = new Profile;
        $a->id_user = $request->id_user;
        $a->name_profile = $request->name_profile;
        $a->description = $request->description;
-       $a->avatar = $imageName;
        $a->likes = 0;
        $a->subscribes = 0;
        $a->activate = 1;

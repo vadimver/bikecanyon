@@ -136,7 +136,7 @@ class PublicationController extends Controller
        if( isset($request->images)) {
 
          $this->validate($request, [
-           'text' => 'required|min:5',
+           'text' => 'required|max:255',
            'images' => 'required|image|mimes:jpeg,png,jpg|max:2048'
           ]);
 
@@ -146,13 +146,17 @@ class PublicationController extends Controller
        } elseif($request->video) {
 
          $this->validate($request, [
-           'text' => 'required|min:5',
+           'text' => 'required|max:255',
            'video' => 'required'
           ]);
          $video_one = str_replace('https://www.youtube.com/watch?v=', '', $request->video);
          $video_two = explode('&', $video_one);
          $video = $video_two[0];
          $a->video = $video;
+       } else {
+         $this->validate($request, [
+           'text' => 'required|max:255'
+          ]);
        }
 
        $a->text = $request->text;

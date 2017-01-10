@@ -1,10 +1,20 @@
 @extends('layouts.app')
 
 @section('content')
+@if (count($errors) > 0)
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+  @endif
+
 <div class="settings-main">
   <form accept-charset="UTF-8" action="{{ url('/update_settings') }}" method="POST">
       @foreach ($settings as $setting)
-      <input type="text" name="password" placeholder="***********"><br><br>
+      <input type="password" name="password" placeholder="***********"><br><br>
       <input type="text" name="name" value="{{$setting->name}}"><br><br>
       <input type="email" name="email" value="{{$setting->email}}"><br><br>
       <input type="hidden" name="_token" value="{{ csrf_token() }}">

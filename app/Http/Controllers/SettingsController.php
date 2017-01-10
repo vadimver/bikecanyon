@@ -49,9 +49,10 @@ class SettingsController extends Controller
   {
 
       $this->validate($request, [
-        'name' => 'required',
-        'email' => 'required|email|unique:users'
+        'name' => 'required|max:255|unique:users,name,'.$request->id_user,
+        'email' => 'required|max:255|email|unique:users,email,'.$request->id_user
       ]);
+
 
       $a = User::find($request->id_user);
 
@@ -60,11 +61,12 @@ class SettingsController extends Controller
 
       if ($request->password != null) {
         $a->password = bcrypt($request->password);
-
       }
 
       $a->save();
+
       return back();
+
   }
 
 }

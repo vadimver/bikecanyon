@@ -1,5 +1,14 @@
 @extends('layouts.app')
 @section('content')
+@if (count($errors) > 0)
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+  @endif
      <form enctype="multipart/form-data" accept-charset="UTF-8" action="{{ url('/new_publication') }}" method="POST">
       <div class="row">
         <div class="col-sm-4 col-sm-offset-4">
