@@ -1,17 +1,134 @@
+/* all */
+
+body{
+  background-color: #FAFAFA;
+  font-family: 'Roboto', sans-serif;
+}
+
+.all_content{
+  margin-top: 150px;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #00BCD4;/* color */
+    border-color: #0398B0;/* color */
+}
+
+.btn-primary:hover,.btn-primary:active, .btn-primary:focus,.btn-primary:visited{
+    color: #fff;
+    background-color: #0398B0!important;
+    border-color: #0398B0!important;
+}
+
+
+
 /* nav */
+.btn-nav{
+ margin-top: 10px;
+}
+
+.nav-search{
+  text-align: center;
+}
+
+
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
-    background-color: #3097D1;
+    background-color: #00BCD4; /* color */
     color:#fff;
 }
 
-.navbar-default{
-  height: 55px;
+.navbar-default .navbar-collapse, .navbar-default .navbar-form {
+    border-color: #d3e0e9;
+    background: #fff;
 }
 
-/* stop nav */
-/* main_contant */
+.navbar-default .navbar-collapse{
+  padding-top: 15px;
+}
+
+/* Main */
+
+
+ .videoWrapper {
+        position: relative;
+        padding-bottom: 56.25%; /* 16:9 */
+        padding-top: 25px;
+        height: 0;
+}
+.videoWrapper iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+}
+
+.div_like{
+  text-align: left;
+}
+
+.div_comment{
+  text-align: center;
+}
+
+.div_tags{
+  text-align: right;
+}
+
+.i_all_comment{
+  color: #0091A9;
+}
+
+.public_tags{
+  color: #0091A9;
+  font-weight: bold;
+}
+.public_like{
+  background-color: white;
+}
+
+.public_comment{
+  background-color: white;
+}
+
+.my_button,
+.my_button:active,
+.my_button:focus {
+    outline: none;
+    border: none;
+}
+
+.public_like_number{
+  margin-left: 5px;
+  color: #727272;
+  font-weight: bold;
+}
+
+.public_comment_number{
+  color: #727272;
+  font-weight: bold;
+}
+.fa-heart{
+  color: #F95D5D;
+}
+
+.content_block{
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.25);
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+}
+.content_head{
+  color: #00BCD4;
+  font-weight: bold;
+  height: 25px;
+  padding-top: 12px;
+}
+
+.list-group-item{
+  background-color: #00BCD4!important; /* color */
+}
 .content_block{
   margin-top: 50px;
   background: white;
@@ -19,9 +136,6 @@
   min-width: 300px;
 }
 
-.all_content{
-  margin-top: 100px;
-}
 .content_img{
   width: 100%;
 }
@@ -29,11 +143,17 @@
 .content_text{
   margin-top: 20px;
   margin-left: 15px;
+  color: #727272;
 }
 
 .content-tag{
  margin-left: 100px;
 }
+
+.public_tags_list{
+  margin-bottom: 10px;
+}
+
 .content_footer{
   margin-top: 15px;
 }
@@ -42,36 +162,68 @@
   right: 15px;
 }
 
+
+
 .add_comment{
   margin-top: 20px;
 }
+
+/* Comment */
 .i_comment{
   position: absolute;
   right: 5px;
-  margin-top: 3px;
+  margin-top: 15px;
+  background-color: white;
 }
 
 i{
   cursor: pointer;
 }
-.i_all_comment{
-  cursor: pointer;
-  margin-left: 30px;
-}
+
 .comment{
   position: relative;
 }
 
 .comment_text{
-  margin: 0;
+  margin-top: 7px;
 }
-/* stop main content */
 
-/* start add_publication */
+
+.comment_user_style{
+  color: #00BCD4;
+}
+
+/* Add publication */
+.chosen-container-multi .chosen-choices{
+  outline: 0;
+  background: transparent !important;
+  color: #B1B7BA;
+  font-size: 100%;
+  font-family: sans-serif;
+  line-height: normal;
+  border-radius: 0;
+
+  font-size: 14px!important;
+  line-height: 1.6!important;
+  color: #555!important;
+  min-height: 36px!important;
+  padding: 3px 12px!important;
+  background-color: #fff!important;
+  border: 1px solid #ccd0d2!important;
+  border-radius: 4px!important;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075)!important;
+  -webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s!important;
+  transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s!important;
+}
+
+.add_pub_button{
+  margin-top: 18px;
+}
+
 .form-group-add{
-  width: 400px;
   margin-bottom: 20px;
   margin-top: 20px;
+  width: 100%!important;
 }
 
 .image_hide{
@@ -79,7 +231,6 @@ i{
 }
 
 .video_hide{
-  width: 95%;
   display: none;
 }
 
@@ -94,9 +245,12 @@ i{
 .before-choise-non{
   display: none;
 }
+/* Add profile*/
+.add_profile_textarea{
+  width: 100%;
+}
 
-/* stop add_publication */
-/* start profile */
+/* Profile */
 .profiles_block{
   margin-top: 70px;
   text-align: center;
@@ -111,17 +265,62 @@ i{
 }
 
 .profile_img{
-  height: 100px;
+  height: 120px;
+  width: 140px;
 }
 
-/* stop profile */
+.profile_info{
+  margin-top: 20px;
+}
 
-/* start tags */
+.profile_stat{
+  margin-top: 20px;
+}
+
+.profile_action{
+  margin-top: 20px;
+}
+
+.profile_subscribe{
+  margin-top: 27px;
+}
+
+.profile_subscribes{
+  color: #0DA25E;
+  font-size: 16px;
+}
+
+.subscribe_number{
+  color: #727272;
+  font-weight: bold;
+  margin-left: 5px;
+  font-size: 14px;
+}
+
+.profile-edit{
+  color: #CA7000;
+  font-size: 16px;
+}
+
+.profile-edit:hover, .profile-edit:active, .profile-edit:focus{
+  color: #FF8818;
+}
+
+.profile-delete:hover, .profile-delete:active, .profile-delete:focus{
+  color: #FF1B2F;
+}
+
+.profile-delete{
+  margin-left: 10px;
+  font-size: 16px;
+  color: #A80909;
+}
+/* Tags */
 .chosen-select{
   width: 80%;
 }
 
-/* stop tags */
+
 
 /* all */
 .sort{
@@ -129,10 +328,44 @@ i{
   text-align: center;
 }
 
+/* my profiles */
+
+.my_profiles_new{
+  text-align: center;
+}
+
+
 /* settings */
+
+.fa-users,.fa-cog,.fa-user-times{
+  color: #0091A9;
+}
+
+.fa-id-card-o{
+  color: #B69400;
+}
+.drop-main-menu li>a:hover{
+  background-color: #00BCD4!important;
+  color: white;
+}
+
+.button_text{
+  font-weight: bold;
+  background-color: white;
+}
+
+.statistic-main i{
+  margin-right: 5px;
+}
+
+.setting_circle{
+  font-size: 16px!important;
+}
+
 li{
     list-style-type: none!important;
 }
+
 .settings-main{
   text-align: center;
 }
@@ -140,6 +373,8 @@ li{
 .settings-main input{
   width: 250px;
 }
+
+
 /* statistic */
 .statistic-main{
   margin-top: 100px;
@@ -149,9 +384,11 @@ li{
   margin: 20px auto;
 }
 
-
-/* stop statistic */
-
+/*create profile */
+.create_profile_file{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
  /* Sticky footer styles
 -------------------------------------------------- */
 html {

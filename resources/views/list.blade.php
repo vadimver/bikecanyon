@@ -1,17 +1,18 @@
 @extends('layouts.app')
 
 @section('content')
+
     <!-- # profiles_block -->
     <div class="container profiles_block">
       <form accept-charset="UTF-8" action="{{ url('/list') }}" method="GET" class="navbar-form profiles_search">
-        <input type="text" name="search" class="form-control" placeholder="Поиск">
+        <input type="text" name="search" class="form-control" placeholder="Поиск по профилям">
       </form>
       <hr/>
       <p>Сортировать по:</p>
       <form accept-charset="UTF-8" action="{{ url('/list') }}" method="GET" class="profiles_sort">
         <button type="submit" name="sort" value="likes" class="btn btn-primary">Рейтинг</button>
         <button type="submit" name="sort" value="subscribes" class="btn btn-primary">Подписчики</button>
-        <button type="submit" name="sort" value="name_profile" class="btn btn-primary">Имя</button>
+        <button type="submit" name="sort" value="name_profile" class="btn btn-primary">Название</button>
       </form>
       <hr/>
       @foreach ($profiles as $profile)
@@ -26,15 +27,32 @@
 
           <div class="row profile">
             <div class="col-sm-3 profile_ava">
-              <img src="../img/bike.jpg" alt="..." class="img-circle profile_img">
+              <img src="../images/profiles/{{$profile->avatar}}" alt="..." class="img-circle profile_img">
             </div>
             <div class="col-sm-3 profile_info">
               <p><strong>{{$profile->name_profile}}</strong></p>
               <p>{{$profile->description}}</p>
             </div>
             <div class="col-sm-3 profile_stat">
-              <p>Лайки {{$profile->likes}}</p>
-              <p>Подписки {{$profile->subscribes}}</p>
+              <p>
+                <button class="public_like my_button quantity_likes" data-toggle="quantity_likes" title="Лайки">
+                  <i class="fa fa-heart" aria-hidden="true"></i>
+                  <span class="public_like_number">
+                      <?php $col = 0;?>
+                      @foreach ($likes as $like)
+                          @if ($profile->id_profile == $like->id_profile)
+                            <?php $col = $col + $like['likes'];?>
+                          @endif
+                      @endforeach
+                      {{$col}}
+                  </span>
+                </button>
+              </p>
+              <p>
+                <button class="profile_subscribes my_button button_text" data-toggle="subscribes" title="Подписчики">
+                      <i class="fa fa-check-square-o" aria-hidden="true"></i><span class="subscribe_number">{{$profile->subscribes}}</span>
+                </button>
+              </p>
             </div>
             <div class="col-sm-3 profile_subscribe">
               <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -48,8 +66,10 @@
           </div>
       </form>
       <!-- / profile -->
-
+      <hr>
       @endforeach
     </div>
     <!-- / profiles_block -->
+
+
 @stop

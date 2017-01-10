@@ -1,3 +1,35 @@
+// Settings tooltip
+$(document).ready(function(){
+    $('[data-toggle="date_registration"]').tooltip();
+});
+
+$(document).ready(function(){
+    $('[data-toggle="quantity_publication"]').tooltip();
+});
+
+$(document).ready(function(){
+    $('[data-toggle="quantity_profiles"]').tooltip();
+});
+
+$(document).ready(function(){
+    $('[data-toggle="quantity_likes"]').tooltip();
+});
+
+$(document).ready(function(){
+    $('[data-toggle="quantity_comments"]').tooltip();
+});
+
+$(document).ready(function(){
+    $('[data-toggle="subscribes"]').tooltip();
+});
+
+$(document).ready(function(){
+    $('[data-toggle="edit_profile"]').tooltip();
+});
+
+$(document).ready(function(){
+    $('[data-toggle="delete_profile"]').tooltip();
+});
 // Like Publication Ajax
 $(document).ready(function(){
     var csrftoken = $('meta[name="csrf-token"]').attr('content');
@@ -10,7 +42,7 @@ $(document).ready(function(){
             data: {'postid':postid,"_token": csrftoken},
             dataType: 'html',
             success: function(data){
-              $('#id_'+postid).text(' ' + data);
+              $('#id_'+postid).text(data);
             },
             error: function(xhr, textStatus) {
                 //alert( [ xhr.status, textStatus ] );
@@ -47,6 +79,7 @@ $(document).ready(function(){
 
 // Add comment
 
+
 $(document).ready(function(){
 
     $(".new_comment").submit(function(e) {
@@ -66,10 +99,10 @@ $(document).ready(function(){
              $('#col_' + get.id_publication).text(commentsPlus);
              $('#pub' + get.id_publication).append('<hr>'+
              '<div class="comment">'+
-                '<i class="fa fa-user-circle" aria-hidden="true"></i>'+
-                '<span id="nc_'+get.id_comment+'">'+get.name+'</span>'+
-                '<button value="'+get.id_comment+'" class="btn btn-primary comment_like i_comment">'+
-                  '<i id="idc_'+get.id_comment+'" class="fa fa-plus-circle" aria-hidden="true">'+get.like_comments+'</i>'+
+                '<i class="fa fa-user-circle comment_user_style" aria-hidden="true"></i>'+
+                '<span class="comment_user_style" id="nc_'+get.id_comment+'">'+get.name+'</span>'+
+                '<button value="'+get.id_comment+'" class="comment_like i_comment my_button">'+
+                  '<i class="fa fa-heart" aria-hidden="true"></i><span id="idc_'+get.id_comment+'"class="public_like_number">'+get.like_comments+'</span>'+
                 '</button>'+
                 '<p class="comment_text">'+get.text+'</p>'+
              '</div>');
@@ -85,3 +118,6 @@ $(document).ready(function(){
 
     });
 });
+
+
+/* */

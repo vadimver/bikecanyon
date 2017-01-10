@@ -11,6 +11,7 @@ use App\Comment;
 use App\Tag;
 use App\Profile;
 use App\Subscribe;
+use App\Like;
 
 class SettingsController extends Controller
 {
@@ -21,12 +22,14 @@ class SettingsController extends Controller
         $com =  Comment::where('id_user', $user_id)->get();
         $pub =  Publication::where('id_user', $user_id)->get();
         $date = User::where('id', $user_id)->get();
-        $prof = Profile::where('id_user', $user_id)->get();
-        $likes = Profile::where('id_user', $user_id)->sum('likes');
+        $prof = Profile::where('id_user', $user_id)->where('activate', 1)->get();
+        $likes = Like::where('user_id', $user_id)->get();
+
 
         $comments = count($com);
         $publications = count($pub);
         $profiles = count($prof);
+        $likes = count($likes);
 
 
         $data = [
@@ -63,18 +66,5 @@ class SettingsController extends Controller
       $a->save();
       return back();
   }
-
-  public function stat()
-  {
-        $data = [
-            'title' => 'Today affairs',
-            'profiles' => 123
-          ];
-
-      return view('statistic', $data);
-  }
-
-
-
 
 }

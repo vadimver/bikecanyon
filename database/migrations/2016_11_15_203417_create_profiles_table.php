@@ -19,7 +19,7 @@ class CreateProfilesTable extends Migration
           $table->string('name_profile');
           $table->text('description');
           $table->string('avatar');
-          $table->boolean('sex');
+          $table->boolean('activate');
           $table->integer('likes');
           $table->integer('subscribes');
           $table->timestamps();

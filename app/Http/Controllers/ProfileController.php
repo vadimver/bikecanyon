@@ -37,15 +37,17 @@ class ProfileController extends Controller
             'menu_list' => 'active',
             'profiles' => Profile::leftJoin('subscribes', function($join) {
               $join->on('profiles.id_profile', '=', 'subscribes.sub_profile');
-            })->where('description','like', "%$search%")->orderBy("$sort", "$inc")->get()
+            })->where('description','like', "%$search%")->where('activate', 1)->orderBy("$sort", "$inc")->get()
           ];
         } else {
           $data = [
             'title' => 'Профайлы',
+            'likes' => Profile::leftJoin('publications', function($join) {
+              $join->on('profiles.id_profile', '=', 'publications.id_profile');})->get(),
             'menu_list' => 'active',
             'profiles' => Profile::leftJoin('subscribes', function($join) {
               $join->on('profiles.id_profile', '=', 'subscribes.sub_profile');
-            })->orderBy("$sort", "$inc")->get()
+            })->where('activate', 1)->orderBy("$sort", "$inc")->get()
           ];
         }
 
@@ -102,7 +104,7 @@ class ProfileController extends Controller
 
       $data = [
         'title' => 'My profiles',
-        'profiles' => Profile::where('id_user',$my_profile)->get()
+        'profiles' => Profile::where('id_user',$my_profile)->where('activate', 1)->get()
       ];
 
       return view('my_profiles', $data);
@@ -114,7 +116,6 @@ class ProfileController extends Controller
          'name_profile' => 'required|min:3|unique:profiles',
          'description' => 'required|min:5',
          'images' => 'image|mimes:jpeg,png,jpg|max:2048',
-         'sex' => 'required'
         ]);
 
        $imageName = $request->id_user . '_' . time().'.'.$request->images->getClientOriginalExtension();
@@ -126,9 +127,9 @@ class ProfileController extends Controller
        $a->name_profile = $request->name_profile;
        $a->description = $request->description;
        $a->avatar = $imageName;
-       $a->sex = $request->sex;
        $a->likes = 0;
        $a->subscribes = 0;
+       $a->activate = 1;
 
        $a->save();
 
@@ -177,8 +178,8 @@ class ProfileController extends Controller
   public function my_destroy($id)
   {
 
-      $a = Profile::where('id_profile', $id)->delete();
-
+      Profile::where('id_profile', $id)
+                          ->update(['activate' => 0]);
       return back();
   }
 }

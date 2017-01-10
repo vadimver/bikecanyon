@@ -128,15 +128,15 @@ class PublicationController extends Controller
            $id_tags[0] = '';
        }
 
-       $test = implode(' ', $id_tags);
+       $tags_string = implode(',', $id_tags);
 
 
        $a = new Publication;
 
        if( isset($request->images)) {
+
          $this->validate($request, [
            'text' => 'required|min:5',
-           'tags' => 'required',
            'images' => 'required|image|mimes:jpeg,png,jpg|max:2048'
           ]);
 
@@ -144,17 +144,19 @@ class PublicationController extends Controller
        $request->images->move(public_path('images/publications/'."$request->id_profile"), $imageName);
        $a->img = $imageName;
        } elseif($request->video) {
+
          $this->validate($request, [
            'text' => 'required|min:5',
-           'tags' => 'required',
            'video' => 'required'
           ]);
-
-         $a->video = $request->video;
+         $video_one = str_replace('https://www.youtube.com/watch?v=', '', $request->video);
+         $video_two = explode('&', $video_one);
+         $video = $video_two[0];
+         $a->video = $video;
        }
 
        $a->text = $request->text;
-       $a->tags = htmlspecialchars($test);
+       $a->tags = $tags_string;
        $a->id_profile = $request->id_profile;
        $a->id_user = $request->id_user;
        $a->likes = 1;

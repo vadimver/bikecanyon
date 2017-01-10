@@ -73,7 +73,6 @@ class CommentController extends Controller
        }
 
        if( $have_like == 0 ) {
-
            $a = new Like;
            $a->user_id = Auth::user()->id;
            $a->comment_id = $request->commentid;

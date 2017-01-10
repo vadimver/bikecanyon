@@ -26,7 +26,7 @@
 
           ?>
           @foreach ($tags_select as $tag_select)
-              {{$tag_select}} <br>
+              <button class="btn btn-default btn-xs">{{$tag_select}}</button>
           @endforeach
           <?php
           }

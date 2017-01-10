@@ -14,26 +14,26 @@
     <link rel="stylesheet" href="{{ url('chosen/docsupport/prism.css') }}">
     <link rel="stylesheet" href="{{ url('chosen/chosen.css') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
+
     <!-- core CSS -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
     <link href="{{ url('css/app.css') }}" rel="stylesheet">
     <link href="{{ url('css/style.css') }}" rel="stylesheet">
-    <link href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
     <link href="{{ url('/css/font-awesome.min.css') }}" rel="stylesheet">
 
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/vue.resource/1.0.3/vue-resource.min.js"></script>
-    <style type="text/css" media="all">
-    /* fix rtl for demo */
-    .chosen-rtl .chosen-drop { left: -9000px; }
-    </style>
+
 </head>
 <body>
+
   @if (!isset($page))
       <?php $page="non"?>;
   @endif
     <div id="app">
+
         <nav class="navbar navbar-default navbar-fixed-top">
-            <div class="container">
+            <div class="container-fluid" id="hide_search">
                 <div class="navbar-header">
 
                     <!-- Collapsed Hamburger -->
@@ -70,17 +70,17 @@
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                <i class="fa fa-user-circle" aria-hidden="true"></i> {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="{{ url('/settings') }}">Настройки</a></li>
-                                    <li><a href="{{ url('/my_profiles') }}">Мои профили</a></li>
+                                <ul class="dropdown-menu drop-main-menu" role="menu">
+                                    <li><a href="{{ url('/settings') }}"><i class="fa fa-cog" aria-hidden="true"></i> Настройки</a></li>
+                                    <li><a href="{{ url('/my_profiles') }}"><i class="fa fa-users" aria-hidden="true"></i> Мои профили</a></li>
                                     <li>
                                         <a href="{{ url('/logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                            Выход
+                                          <i class="fa fa-user-times" aria-hidden="true"></i>  Выход
                                         </a>
 
                                         <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
@@ -94,14 +94,15 @@
 
                         @endif
                     </ul>
-
-                    <form action="{{ url('/') }}" method="POST" class="navbar-form navbar-right">
-                      <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                      <input type="text" name="search" class="form-control" placeholder="Поиск">
-                    </form>
+                    <button @click="show = !show" class="btn btn-primary btn-sm navbar-right btn-nav"><i class="fa fa-search" aria-hidden="true"></i></button>
                 </div>
+                  <form v-if="show" action="{{ url('/') }}" method="POST" class="navbar-form nav-search">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <input type="text" name="search" class="form-control" placeholder="Поиск">
+                  </form>
             </div>
         </nav>
+
         <div class="all_content">
         @yield('content')
         </div>
@@ -114,13 +115,17 @@
        </div>
     </footer>
     <!-- Bootstrap core JavaScript -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="/js/vue_scripts.js" type="text/javascript"></script>
     <script src="/chosen/chosen.jquery.js" type="text/javascript"></script>
     <script src="/chosen/docsupport/prism.js" type="text/javascript" charset="utf-8"></script>
     <script src="/js/chosen_script.js" type="text/javascript"></script>
-    <script src="/js/bike.js"></script>
+
     <script src="/js/app.js"></script>
+    <script src="/js/bike.js"></script>
+
+
 
 </body>
 </html>
