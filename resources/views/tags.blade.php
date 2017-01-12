@@ -8,9 +8,9 @@
       <div class="side-by-side clearfix">
         <div class="form-group">
           <select name='list_tags[]' data-placeholder="Выбрать тег" class="chosen-select" multiple tabindex="4">
-            <option value=""></option>
+            <option v-cloak value=""></option>
             @foreach ($tags as $tag)
-            <option>{{$tag->name_tag}}</option>
+            <option v-cloak>{{$tag->name_tag}}</option>
             @endforeach
           </select>
 

@@ -8,7 +8,7 @@
             @endforeach
         </ul>
     </div>
-  @endif
+@endif
      <form enctype="multipart/form-data" accept-charset="UTF-8" action="{{ url('/new_publication') }}" method="POST">
       <div class="row">
         <div class="col-sm-4 col-sm-offset-4">
@@ -23,7 +23,7 @@
              </div>
          <!-- # before-choise -->
 
-         <div class="before-choise-@{{selected}} col-md-12 ttt">
+         <div class="before-choise-@{{selected}} col-md-12">
            <div class="form-group-add">
                 <select name='list_tags[]' data-placeholder="Выбрать тег" class="chosen-select" multiple>
                   <option value=""></option>

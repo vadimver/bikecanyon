@@ -35,9 +35,11 @@ class ProfileController extends Controller
           $data = [
             'title' => 'Профайлы',
             'menu_list' => 'active',
+            'likes' => Profile::leftJoin('publications', function($join) {
+              $join->on('profiles.id_profile', '=', 'publications.id_profile');})->get(),
             'profiles' => Profile::leftJoin('subscribes', function($join) {
               $join->on('profiles.id_profile', '=', 'subscribes.sub_profile');
-            })->where('description','like', "%$search%")->where('activate', 1)->orderBy("$sort", "$inc")->get()
+            })->where('name_profile','like', "%$search%")->where('activate', 1)->orderBy("$sort", "$inc")->get()
           ];
         } else {
           $data = [
@@ -117,7 +119,7 @@ class ProfileController extends Controller
 
        if (isset($request->images)) {
        $this->validate($request, [
-           'name_profile' => 'required|min:3|unique:profiles',
+           'name_profile' => 'required|unique:profiles|max:50',
            'description' => 'required|min:5',
            'images' => 'image|mimes:jpeg,png,jpg|max:2048',
        ]);
@@ -128,7 +130,7 @@ class ProfileController extends Controller
        $a->avatar = $imageName;
        } else {
          $this->validate($request, [
-             'name_profile' => 'required|min:3|unique:profiles',
+             'name_profile' => 'required|unique:profiles|max:50',
              'description' => 'required|min:5'
          ]);
 

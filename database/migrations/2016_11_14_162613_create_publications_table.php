@@ -19,8 +19,8 @@ class CreatePublicationsTable extends Migration
             $table->integer('id_profile');
             $table->integer('id_user');
             $table->text('text');
-            $table->string('img');
-            $table->string('video');
+            $table->string('img')->nullable();
+            $table->string('video')->nullable();
             $table->integer('likes');
             $table->string('tags');
             $table->timestamps();

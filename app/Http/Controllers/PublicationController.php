@@ -36,7 +36,8 @@ class PublicationController extends Controller
         'comments' => Comment::
           leftJoin('users', function($join) {
           $join->on('comments.id_user', '=', 'users.id');})
-          ->get()
+          ->get(),
+        'top_profile' => Profile::orderBy('likes', 'DESC')->limit(15)->get()
       ];
 
       return view('all', $data)->with(["page" => "all"]);
@@ -66,7 +67,8 @@ class PublicationController extends Controller
         'comments' => Comment::
         leftJoin('users', function($join) {
         $join->on('comments.id_user', '=', 'users.id');})
-          ->get()
+          ->get(),
+        'top_profile' => Profile::orderBy('likes', 'DESC')->limit(15)->get()
       ];
 
       return view('subscribe', $data)->with(["page" => "subscribe"]);
@@ -101,7 +103,8 @@ class PublicationController extends Controller
           leftJoin('users', function($join) {
           $join->on('comments.id_user', '=', 'users.id');})
           ->get(),
-        'tags' => Tag::all()
+        'tags' => Tag::all(),
+        'top_profile' => Profile::orderBy('likes', 'DESC')->limit(15)->get()
       ];
 
       return view('tags', $data)->with(["page" => "tags"]);
@@ -122,6 +125,7 @@ class PublicationController extends Controller
 
     public function create(Request $request)
    {
+
        if(isset($_POST['list_tags'])) {
            $id_tags = $_POST['list_tags'];
        } else {
@@ -136,8 +140,7 @@ class PublicationController extends Controller
        if( isset($request->images)) {
 
          $this->validate($request, [
-           'text' => 'required|max:255',
-           'images' => 'required|image|mimes:jpeg,png,jpg|max:2048'
+           'images' => 'image|mimes:jpeg,png,jpg|max:2048'
           ]);
 
        $imageName = time().'.'.$request->images->getClientOriginalExtension();
@@ -146,7 +149,6 @@ class PublicationController extends Controller
        } elseif($request->video) {
 
          $this->validate($request, [
-           'text' => 'required|max:255',
            'video' => 'required'
           ]);
          $video_one = str_replace('https://www.youtube.com/watch?v=', '', $request->video);
@@ -155,7 +157,7 @@ class PublicationController extends Controller
          $a->video = $video;
        } else {
          $this->validate($request, [
-           'text' => 'required|max:255'
+           'text' => 'required'
           ]);
        }
 
@@ -163,7 +165,7 @@ class PublicationController extends Controller
        $a->tags = $tags_string;
        $a->id_profile = $request->id_profile;
        $a->id_user = $request->id_user;
-       $a->likes = 1;
+       $a->likes = 0;
 
        $a->save();
 
@@ -171,11 +173,7 @@ class PublicationController extends Controller
        // get last id publication
        $last_post_id = Publication::max('id_publication');
        $post_id =  $last_post_id;
-       $like = new Like;
-       $like->user_id = Auth::user()->id;
-       $like->post_id = $post_id;
 
-       $like->save();
        $a->save();
 
        return redirect('/');

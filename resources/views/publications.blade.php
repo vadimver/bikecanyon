@@ -1,4 +1,30 @@
+<?php $quant_public = 0;?>
+<div class="top_profiles">
+    @foreach($top_profile as $tp)
+        <div class="top_prof">
+          <form action="{{ url('/list') }}" method="GET">
+            <button type="submit" name="search" value="{{$tp->name_profile}}" class="top_button"> <span class="top_text">{{$tp->name_profile}}</span></button>
+          </form>
+          <button class="public_like my_button" data-toggle="quantity_likes" title="Лайки">
+            <i class="fa fa-heart" aria-hidden="true"></i><span class="public_like_number">{{$tp->likes}}</span>
+          </button>
+          <button class="profile_subscribes my_button button_text" data-toggle="subscribes" title="Подписчики">
+                <i class="fa fa-check-square-o" aria-hidden="true"></i><span class="subscribe_number">{{$tp->subscribes}}</span>
+          </button>
+          <button class="my_button button_text quantity_publication" data-toggle="quantity_publication" title="Публикации">
+            <i class="fa fa-id-card-o" aria-hidden="true"></i>
+            @foreach ($publications as $publication)
+              @if($publication->id_profile == $tp->id_profile)
+                  <?php $quant_public++;?>
+              @endif
+            @endforeach
+            {{$quant_public}}
 
+          </button>
+        </div>
+    <?php $quant_public = 0; ?>
+    @endforeach
+</div>
 @foreach ($publications as $publication)
     <?php $pub = 0; ?>
     @foreach ($comments as $comment)
@@ -7,6 +33,7 @@
         @endif
 
     @endforeach
+
 <!-- # content_block -->
 <div class="container content_block">
 <div class="row">

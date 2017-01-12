@@ -77,9 +77,6 @@ $(document).ready(function(){
     });
 });
 
-// Add comment
-
-
 $(document).ready(function(){
 
     $(".new_comment").submit(function(e) {

@@ -42,7 +42,7 @@ class CommentController extends Controller
         $a->text = $request->text;
         $a->id_publication = $request->id_publication;
         $a->id_user = $user_id;
-        $a->like_comments = 1;
+        $a->like_comments = 0;
 
 
         // add my like

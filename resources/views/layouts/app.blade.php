@@ -17,16 +17,22 @@
 
     <!-- core CSS -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Bevan" rel="stylesheet">
     <link href="{{ url('css/app.css') }}" rel="stylesheet">
     <link href="{{ url('css/style.css') }}" rel="stylesheet">
-    <link href="{{ url('/css/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="{{ url('css/font-awesome.min.css') }}" rel="stylesheet">
 
-    <script src="https://unpkg.com/vue/dist/vue.js"></script>
-    <script src="https://cdn.jsdelivr.net/vue.resource/1.0.3/vue-resource.min.js"></script>
 
 </head>
 <body>
-
+<div class="page-preloader">
+  <div class="cssload-thecube">
+  	<div class="cssload-cube cssload-c1"></div>
+  	<div class="cssload-cube cssload-c2"></div>
+  	<div class="cssload-cube cssload-c4"></div>
+  	<div class="cssload-cube cssload-c3"></div>
+  </div>
+</div>
   @if (!isset($page))
       <?php $page="non"?>;
   @endif
@@ -41,7 +47,7 @@
                         <span class="sr-only">Toggle Navigation</span>
                         <span>Меню</span>
                     </button>
-                    <a class="navbar-brand" href="/">BikeCanyon</a>
+                    <a class="navbar-brand" href="/"><span class="one_logo">BIKE<span> <img class="mainlogo" src="../images/logo-bike.jpg"> <span class="two_logo">CANYON</span></a>
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
@@ -65,8 +71,8 @@
                         <!-- Authentication Links -->
 
                         @if (Auth::guest())
-                            <li><a href="{{ url('/login') }}">Login</a></li>
-                            <li><a href="{{ url('/register') }}">Register</a></li>
+                            <li><a href="{{ url('/login') }}">Вход</a></li>
+                            <li><a href="{{ url('/register') }}">Регистрация</a></li>
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -96,7 +102,7 @@
                     </ul>
                     <button @click="show = !show" class="btn btn-primary btn-sm navbar-right btn-nav"><i class="fa fa-search" aria-hidden="true"></i></button>
                 </div>
-                  <form v-if="show" action="{{ url('/') }}" method="POST" class="navbar-form nav-search">
+                  <form v-cloak v-if="show"  action="{{ url('/') }}" method="POST" class="navbar-form nav-search">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <input type="text" name="search" class="form-control" placeholder="Поиск">
                   </form>
@@ -107,16 +113,15 @@
         @yield('content')
         </div>
     </div>
-
-
     <footer class="footer">
        <div class="container">
          <p class="text-muted">Place sticky footer content here.</p>
        </div>
     </footer>
     <!-- Bootstrap core JavaScript -->
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/vue.resource/1.0.3/vue-resource.min.js"></script>
     <script src="/js/vue_scripts.js" type="text/javascript"></script>
     <script src="/chosen/chosen.jquery.js" type="text/javascript"></script>
     <script src="/chosen/docsupport/prism.js" type="text/javascript" charset="utf-8"></script>
@@ -125,7 +130,12 @@
     <script src="/js/app.js"></script>
     <script src="/js/bike.js"></script>
 
+    <script type="text/javascript">
 
-
+    $(window).on('load', function () {
+    var $preloader = $('.page-preloader');
+    $preloader.delay(10).fadeOut('slow');
+    });
+    </script>
 </body>
 </html>
