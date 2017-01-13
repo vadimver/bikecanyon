@@ -38,4 +38,7 @@
       @endforeach
     </div>
     <!-- / profiles_block -->
+    <div class="pagination_block">
+        {{ $profiles->links() }}
+    </div>
 @stop

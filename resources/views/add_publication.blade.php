@@ -9,16 +9,21 @@
         </ul>
     </div>
 @endif
+<form action="{{ url('create_profile') }}" class="my_profiles_new">
+    <button class="btn btn-primary btn-sm">Создать профиль</button>
+</form>
+
      <form enctype="multipart/form-data" accept-charset="UTF-8" action="{{ url('/new_publication') }}" method="POST">
       <div class="row">
         <div class="col-sm-4 col-sm-offset-4">
              <div class="col-md-12">
 
                  <select name="id_profile" v-model="selected" class="form-control">
-                     <option selected value="non" disabled>Выберите или создайте профиль</option>
+                     <option selected value="non" disabled>Выберите профиль</option>
                      @foreach ($profiles as $profile)
                      <option value="{{$profile->id_profile}}">{{$profile->name_profile}}</option>
                      @endforeach
+
                  </select>
              </div>
          <!-- # before-choise -->
@@ -32,8 +37,8 @@
                   @endforeach
                 </select>
           </div>
-             <textarea name="text" class="form-control" maxlength="3000" rows='10' placeholder="Максимум 3000 символов"></textarea>
-             <div class="add_visual_block">
+
+        <div class="add_visual_block">
                <div class="radio">
                 <label>
                   <input type="radio" id="optionsRadios1" name="visual" value="img_pick" v-model="picked" checked>
@@ -58,8 +63,10 @@
 
                <input class="image_hide" id="i@{{picked}}" type="file" name="images">
                <input class="form-control video_hide" id="v@{{picked}}" type="text" name="video" placeholder="Ссылка на видео">
+               <textarea name="text" class="form-control" maxlength="3000" rows='10' placeholder="Максимум 3000 символов"></textarea>
                <button type="submit" class="btn btn-primary add_pub_button">Добавить</button>
         </div>
+
         <!-- / before-set -->
         </div>
       </div>

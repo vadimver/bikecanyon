@@ -4,10 +4,10 @@
 
 <form action='tags' method='POST'>
    <div class="row">
-     <div class="col-sm-8 col-sm-offset-4">
+     <div class="col-sm-8 col-sm-offset-4 col-xs-12 tags-select">
       <div class="side-by-side clearfix">
         <div class="form-group">
-          <select name='list_tags[]' data-placeholder="Выбрать тег" class="chosen-select" multiple tabindex="4">
+          <select name='list_tags[]' data-placeholder="Выбрать тег" class="chosen-select tags_selecter" multiple tabindex="4">
             <option v-cloak value=""></option>
             @foreach ($tags as $tag)
             <option v-cloak>{{$tag->name_tag}}</option>

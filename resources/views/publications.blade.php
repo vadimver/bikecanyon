@@ -6,7 +6,16 @@
             <button type="submit" name="search" value="{{$tp->name_profile}}" class="top_button"> <span class="top_text">{{$tp->name_profile}}</span></button>
           </form>
           <button class="public_like my_button" data-toggle="quantity_likes" title="Лайки">
-            <i class="fa fa-heart" aria-hidden="true"></i><span class="public_like_number">{{$tp->likes}}</span>
+            <i class="fa fa-heart" aria-hidden="true"></i>
+            <span class="public_like_number">
+              <?php $col = 0;?>
+              @foreach ($likes as $like)
+                  @if ($tp->id_profile == $like->id_profile)
+                    <?php $col = $col + $like['likes'];?>
+                  @endif
+              @endforeach
+              {{$col}}
+            </span>
           </button>
           <button class="profile_subscribes my_button button_text" data-toggle="subscribes" title="Подписчики">
                 <i class="fa fa-check-square-o" aria-hidden="true"></i><span class="subscribe_number">{{$tp->subscribes}}</span>
@@ -104,7 +113,7 @@
                     <hr>
                     <div class="comment">
                        <i class="fa fa-user-circle comment_user_style" aria-hidden="true"></i>
-                       <span class="comment_user_style" id="nc_{{$comment->id_comment}}">{{$comment->name}} </span>
+                       <span class="comment_user_style" id="nc_{{$comment->id_comment}}">{{$comment->name}}</span>
                        <button value="{{$comment->id_comment}}" class="comment_like i_comment my_button">
                          <i class="fa fa-heart" aria-hidden="true"></i><span id="idc_{{$comment->id_comment}}" class="public_like_number">{{$comment->like_comments}}</span>
                        </button>
@@ -129,3 +138,6 @@
 <!-- / content_block -->
 
 @endforeach
+<div class="pagination_block">
+    {{ $publications->links() }}
+</div>

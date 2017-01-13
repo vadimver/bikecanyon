@@ -58,9 +58,9 @@
               <input type="hidden" name="_token" value="{{ csrf_token() }}">
               <input type='hidden' name="id_profile" value="{{$profile->id_profile}}">
               @if (isset($profile->my_profile))
-              <button type="submit" name="unsub" value="{{$profile->id_sub}}" class="btn btn-success profile_button">Отписаться</button>
+              <button type="submit" name="unsub" value="{{$profile->id_sub}}" class="btn btn-primary profile_button">Отписаться</button>
               @else
-              <button type="submit" name="sub" class="btn btn-primary profile_button">Подписаться</button>
+              <button type="submit" name="sub" class="btn btn-default profile_button">Подписаться</button>
               @endif
             </div>
           </div>
@@ -70,6 +70,8 @@
       @endforeach
     </div>
     <!-- / profiles_block -->
-
+    <div class="pagination_block">
+        {{ $profiles->links() }}
+    </div>
 
 @stop

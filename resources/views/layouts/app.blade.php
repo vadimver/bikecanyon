@@ -5,10 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <link id="favicon" rel="shortcut icon" href="{{ url('images/favicon.jpg') }}" type="image/x-icon">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>BikeCanyon</title>
+    <title>{{$title}}</title>
     <!-- core chosen -->
     <link rel="stylesheet" href="{{ url('chosen/docsupport/style.css') }}">
     <link rel="stylesheet" href="{{ url('chosen/docsupport/prism.css') }}">
@@ -113,11 +114,6 @@
         @yield('content')
         </div>
     </div>
-    <footer class="footer">
-       <div class="container">
-         <p class="text-muted">Place sticky footer content here.</p>
-       </div>
-    </footer>
     <!-- Bootstrap core JavaScript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://unpkg.com/vue/dist/vue.js"></script>

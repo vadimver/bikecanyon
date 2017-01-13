@@ -33,23 +33,23 @@ class ProfileController extends Controller
       if(isset($request->search)) {
         $search = $request->search;
           $data = [
-            'title' => 'Профайлы',
+            'title' => 'Профили',
             'menu_list' => 'active',
             'likes' => Profile::leftJoin('publications', function($join) {
               $join->on('profiles.id_profile', '=', 'publications.id_profile');})->get(),
             'profiles' => Profile::leftJoin('subscribes', function($join) {
               $join->on('profiles.id_profile', '=', 'subscribes.sub_profile');
-            })->where('name_profile','like', "%$search%")->where('activate', 1)->orderBy("$sort", "$inc")->get()
+            })->where('name_profile','like', "%$search%")->where('activate', 1)->orderBy("$sort", "$inc")->paginate(30)
           ];
         } else {
           $data = [
-            'title' => 'Профайлы',
+            'title' => 'Профили',
             'likes' => Profile::leftJoin('publications', function($join) {
               $join->on('profiles.id_profile', '=', 'publications.id_profile');})->get(),
             'menu_list' => 'active',
             'profiles' => Profile::leftJoin('subscribes', function($join) {
               $join->on('profiles.id_profile', '=', 'subscribes.sub_profile');
-            })->where('activate', 1)->orderBy("$sort", "$inc")->get()
+            })->where('activate', 1)->orderBy("$sort", "$inc")->paginate(30)
           ];
         }
 
@@ -105,8 +105,8 @@ class ProfileController extends Controller
       $my_profile = Auth::user()->id;
 
       $data = [
-        'title' => 'My profiles',
-        'profiles' => Profile::where('id_user',$my_profile)->where('activate', 1)->get()
+        'title' => 'Мои профили',
+        'profiles' => Profile::where('id_user',$my_profile)->where('activate', 1)->paginate(30)
       ];
 
       return view('my_profiles', $data);
@@ -155,7 +155,7 @@ class ProfileController extends Controller
    {
         {
          $data = [
-           'title' => 'Edit'
+           'title' => 'Редактирование'
          ];
 
         $edit = Profile::where('id_profile', $id)->first();
@@ -191,9 +191,10 @@ class ProfileController extends Controller
 
   public function my_destroy($id)
   {
-
+     $name = Profile::where('id_profile', $id)->pluck('name_profile');
+     $name = $name[0] . '_inaktive';
       Profile::where('id_profile', $id)
-                          ->update(['activate' => 0]);
+                        ->update(['activate' => 0, 'name_profile' => $name]);
       return back();
   }
 }

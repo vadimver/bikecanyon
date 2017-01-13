@@ -25,14 +25,16 @@ class PublicationController extends Controller
         $search = '';
       }
       $data = [
-        'title' => 'Today affairs',
+        'title' => 'Все публикации',
+        'likes' => Profile::leftJoin('publications', function($join) {
+          $join->on('profiles.id_profile', '=', 'publications.id_profile');})->get(),
         'publications' => Publication::
         where('text', 'like', "%$search%")->
         select('publications.*', 'profiles.name_profile')
         ->leftJoin('profiles', function($join) {
           $join->on('publications.id_profile', '=', 'profiles.id_profile');
         })
-        ->orderBy('id_publication', 'DESC')->get(),
+        ->orderBy('id_publication', 'DESC')->paginate(3),
         'comments' => Comment::
           leftJoin('users', function($join) {
           $join->on('comments.id_user', '=', 'users.id');})
@@ -53,6 +55,8 @@ class PublicationController extends Controller
 
       $data = [
         'title' => 'Подписки',
+        'likes' => Profile::leftJoin('publications', function($join) {
+          $join->on('profiles.id_profile', '=', 'publications.id_profile');})->get(),
         'menu_subscribe' => 'active',
         'publications' => Publication::
         select('publications.*', 'profiles.name_profile', 'tags.name_tag')
@@ -63,7 +67,7 @@ class PublicationController extends Controller
         ->leftJoin('tags', function($join) {
           $join->on('publications.tags', '=', 'tags.id_tag');
         })
-        ->orderBy('id_publication', 'DESC')->get(),
+        ->orderBy('id_publication', 'DESC')->paginate(20),
         'comments' => Comment::
         leftJoin('users', function($join) {
         $join->on('comments.id_user', '=', 'users.id');})
@@ -86,6 +90,8 @@ class PublicationController extends Controller
 
       $data = [
         'title' => 'Теги',
+        'likes' => Profile::leftJoin('publications', function($join) {
+          $join->on('profiles.id_profile', '=', 'publications.id_profile');})->get(),
         'menu_tags' => 'active',
         // описк whereIn('tags', 'like', "%$id_tags%")
         'publications' => Publication::
@@ -98,7 +104,7 @@ class PublicationController extends Controller
         ->leftJoin('profiles', function($join) {
           $join->on('publications.id_profile', '=', 'profiles.id_profile');
         })
-        ->orderBy('id_publication', 'DESC')->get(),
+        ->orderBy('id_publication', 'DESC')->paginate(20),
         'comments' => Comment::
           leftJoin('users', function($join) {
           $join->on('comments.id_user', '=', 'users.id');})

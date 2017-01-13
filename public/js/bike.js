@@ -97,7 +97,7 @@ $(document).ready(function(){
              $('#pub' + get.id_publication).append('<hr>'+
              '<div class="comment">'+
                 '<i class="fa fa-user-circle comment_user_style" aria-hidden="true"></i>'+
-                '<span class="comment_user_style" id="nc_'+get.id_comment+'">'+get.name+'</span>'+
+                '<span class="comment_user_style" id="nc_'+get.id_comment+'"> '+get.name+'</span>'+
                 '<button value="'+get.id_comment+'" class="comment_like i_comment my_button">'+
                   '<i class="fa fa-heart" aria-hidden="true"></i><span id="idc_'+get.id_comment+'"class="public_like_number">'+get.like_comments+'</span>'+
                 '</button>'+
